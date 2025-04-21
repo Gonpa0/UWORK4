@@ -1,6 +1,6 @@
 package pe.edu.upc.s3155_uwork4.dtos;
 
-import jakarta.persistence.*;
+
 import pe.edu.upc.s3155_uwork4.entities.Rol;
 
 public class UsuarioDTO {

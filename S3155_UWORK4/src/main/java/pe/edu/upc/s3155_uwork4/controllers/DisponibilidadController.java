@@ -5,9 +5,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import pe.edu.upc.s3155_uwork4.dtos.DisponibilidadDTO;
-import pe.edu.upc.s3155_uwork4.dtos.UsuarioDTO;
 import pe.edu.upc.s3155_uwork4.entities.Disponibilidad;
-import pe.edu.upc.s3155_uwork4.entities.Usuario;
 import pe.edu.upc.s3155_uwork4.servicesinterfaces.IDisponibilidadService;
 
 import java.util.List;

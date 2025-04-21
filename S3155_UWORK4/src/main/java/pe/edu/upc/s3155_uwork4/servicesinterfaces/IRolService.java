@@ -1,7 +1,6 @@
 package pe.edu.upc.s3155_uwork4.servicesinterfaces;
 
 import pe.edu.upc.s3155_uwork4.entities.Rol;
-import pe.edu.upc.s3155_uwork4.entities.Usuario;
 
 import java.util.List;
 
