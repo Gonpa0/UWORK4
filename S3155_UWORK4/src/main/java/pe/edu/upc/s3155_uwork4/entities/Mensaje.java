@@ -3,7 +3,8 @@ package pe.edu.upc.s3155_uwork4.entities;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
-
+@Entity
+@Table(name = "Mensaje")
 public class Mensaje {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
