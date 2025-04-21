@@ -7,9 +7,9 @@ import java.util.List;
 
 public interface IAsesoriaService {
     public List<Asesoria> listar();
-    public void Registrar(Asesoria r);
+    public void Registrar(Asesoria a);
     public Asesoria listarporid(int id);
-    public void Modificar(Asesoria r);
+    public void Modificar(Asesoria a);
     public void Eliminar(int id);
 
 }

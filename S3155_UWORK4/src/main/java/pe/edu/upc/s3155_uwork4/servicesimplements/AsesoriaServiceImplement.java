@@ -14,7 +14,7 @@ public class AsesoriaServiceImplement implements IAsesoriaService {
     private IAsesoriaRepository aR;
 
     @Override
-    public List<Asesoria> list() {
+    public List<Asesoria> listar() {
         return aR.findAll();
     }
 

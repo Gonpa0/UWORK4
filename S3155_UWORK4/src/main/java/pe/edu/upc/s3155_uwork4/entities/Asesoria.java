@@ -20,20 +20,20 @@ public class Asesoria {
 
     @ManyToOne
     @JoinColumn(name = "idUsuarioInferior")
-    private Usuario idusuarioInferior;
+    private Usuario usuarioInferior;
     @ManyToOne
     @JoinColumn(name = "idUsuarioSuperior")
-    private Usuario idusuarioSuperior;
+    private Usuario usuarioSuperior;
 
     public Asesoria() {
     }
 
-    public Asesoria(int idAsesoria, String nombreAsesoria, LocalDate fechaAsesoria, Usuario idusuarioInferior, Usuario idusuarioSuperior) {
+    public Asesoria(int idAsesoria, String nombreAsesoria, LocalDate fechaAsesoria, Usuario usuarioInferior, Usuario usuarioSuperior) {
         this.idAsesoria = idAsesoria;
         this.nombreAsesoria = nombreAsesoria;
         this.fechaAsesoria = fechaAsesoria;
-        this.idusuarioInferior = idusuarioInferior;
-        this.idusuarioSuperior = idusuarioSuperior;
+        this.usuarioInferior = usuarioInferior;
+        this.usuarioSuperior = usuarioSuperior;
     }
 
     public int getIdAsesoria() {
@@ -60,19 +60,19 @@ public class Asesoria {
         this.fechaAsesoria = fechaAsesoria;
     }
 
-    public Usuario getIdusuarioInferior() {
-        return idusuarioInferior;
+    public Usuario getUsuarioInferior() {
+        return usuarioInferior;
     }
 
-    public void setIdusuarioInferior(Usuario idusuarioInferior) {
-        this.idusuarioInferior = idusuarioInferior;
+    public void setUsuarioInferior(Usuario usuarioInferior) {
+        this.usuarioInferior = usuarioInferior;
     }
 
-    public Usuario getIdusuarioSuperior() {
-        return idusuarioSuperior;
+    public Usuario getUsuarioSuperior() {
+        return usuarioSuperior;
     }
 
-    public void setIdusuarioSuperior(Usuario idusuarioSuperior) {
-        this.idusuarioSuperior = idusuarioSuperior;
+    public void setUsuarioSuperior(Usuario usuarioSuperior) {
+        this.usuarioSuperior = usuarioSuperior;
     }
 }
