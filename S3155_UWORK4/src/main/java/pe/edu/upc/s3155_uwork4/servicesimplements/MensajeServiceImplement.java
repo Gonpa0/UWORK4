@@ -18,8 +18,8 @@ public class MensajeServiceImplement implements IMensajeService {
     }
 
     @Override
-    public void Registrar(Mensaje m){
-        mR.save(m);
+    public void Registrar(Mensaje me){
+        mR.save(me);
     }
 
     @Override
@@ -28,8 +28,8 @@ public class MensajeServiceImplement implements IMensajeService {
     }
 
     @Override
-    public void Modificar(Mensaje m){
-        mR.save(m);
+    public void Modificar(Mensaje me){
+        mR.save(me);
     }
 
     @Override
