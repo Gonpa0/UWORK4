@@ -7,8 +7,8 @@ import java.util.List;
 
 public interface IMensajeService {
     public List<Mensaje> listar();
-    public void Registrar(Mensaje m);
+    public void Registrar(Mensaje me);
     public Mensaje listarporid(int id);
-    public void Modificar(Mensaje m);
+    public void Modificar(Mensaje me);
     public void Eliminar(int id);
 }
