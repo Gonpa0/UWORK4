@@ -43,7 +43,7 @@ public class MensajeController {
         Mensaje me = m.map(dto,Mensaje.class);
         mS.Modificar(me);
     }
-    @DeleteMapping("{/id}")
+    @DeleteMapping("/{id}")
     public void Eliminar(@PathVariable("id") int id) {
         mS.Eliminar(id);
     }
