@@ -8,7 +8,7 @@ import java.time.LocalDate;
 public class Asesoria {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private int idAsesoria;
 
     @Column(name = "nombreAsesoria", length = 50, nullable = false)
     private String nombreAsesoria;
@@ -20,28 +20,28 @@ public class Asesoria {
 
     @ManyToOne
     @JoinColumn(name = "idUsuarioInferior")
-    private Usuario usuarioInferior;
+    private Usuario idusuarioInferior;
     @ManyToOne
     @JoinColumn(name = "idUsuarioSuperior")
-    private Usuario usuarioSuperior;
+    private Usuario idusuarioSuperior;
 
     public Asesoria() {
     }
 
-    public Asesoria(int id, String nombreAsesoria, LocalDate fechaAsesoria, Usuario usuarioInferior, Usuario usuarioSuperior) {
-        this.id = id;
+    public Asesoria(int idAsesoria, String nombreAsesoria, LocalDate fechaAsesoria, Usuario idusuarioInferior, Usuario idusuarioSuperior) {
+        this.idAsesoria = idAsesoria;
         this.nombreAsesoria = nombreAsesoria;
         this.fechaAsesoria = fechaAsesoria;
-        this.usuarioInferior = usuarioInferior;
-        this.usuarioSuperior = usuarioSuperior;
+        this.idusuarioInferior = idusuarioInferior;
+        this.idusuarioSuperior = idusuarioSuperior;
     }
 
-    public int getId() {
-        return id;
+    public int getIdAsesoria() {
+        return idAsesoria;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setIdAsesoria(int idAsesoria) {
+        this.idAsesoria = idAsesoria;
     }
 
     public String getNombreAsesoria() {
@@ -60,19 +60,19 @@ public class Asesoria {
         this.fechaAsesoria = fechaAsesoria;
     }
 
-    public Usuario getUsuarioInferior() {
-        return usuarioInferior;
+    public Usuario getIdusuarioInferior() {
+        return idusuarioInferior;
     }
 
-    public void setUsuarioInferior(Usuario usuarioInferior) {
-        this.usuarioInferior = usuarioInferior;
+    public void setIdusuarioInferior(Usuario idusuarioInferior) {
+        this.idusuarioInferior = idusuarioInferior;
     }
 
-    public Usuario getUsuarioSuperior() {
-        return usuarioSuperior;
+    public Usuario getIdusuarioSuperior() {
+        return idusuarioSuperior;
     }
 
-    public void setUsuarioSuperior(Usuario usuarioSuperior) {
-        this.usuarioSuperior = usuarioSuperior;
+    public void setIdusuarioSuperior(Usuario idusuarioSuperior) {
+        this.idusuarioSuperior = idusuarioSuperior;
     }
 }
