@@ -42,7 +42,7 @@ public class AsesoriaController {
         Asesoria a = m.map(dto,Asesoria.class);
         aS.Modificar(a);
     }
-    @DeleteMapping("{/id}")
+    @DeleteMapping("/{id}")
     public void Eliminar(@PathVariable("id") int id) {
         aS.Eliminar(id);
     }

@@ -3,7 +3,6 @@ package pe.edu.upc.s3155_uwork4.servicesimplements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pe.edu.upc.s3155_uwork4.entities.Asesoria;
-import pe.edu.upc.s3155_uwork4.entities.Rol;
 import pe.edu.upc.s3155_uwork4.repositories.IAsesoriaRepository;
 import pe.edu.upc.s3155_uwork4.servicesinterfaces.IAsesoriaService;
 

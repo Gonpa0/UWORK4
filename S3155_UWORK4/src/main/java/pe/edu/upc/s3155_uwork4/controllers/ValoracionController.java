@@ -31,7 +31,7 @@ public class ValoracionController {
         vS.Registrar(v);
     }
 
-    @GetMapping("{/id})")
+    @GetMapping("/{id})")
     public ValoracionDTO ListarporId(@PathVariable ("id") int id) {
         ModelMapper m = new ModelMapper();
         ValoracionDTO dto = m.map(vS.listarporid(id), ValoracionDTO.class);
@@ -47,7 +47,7 @@ public class ValoracionController {
         vS.Modificar(v);
     }
 
-    @DeleteMapping("{/id}")
+    @DeleteMapping("/{id}")
     public void eliminar(@PathVariable ("id") int id) {
         vS.Eliminar(id);
     }
