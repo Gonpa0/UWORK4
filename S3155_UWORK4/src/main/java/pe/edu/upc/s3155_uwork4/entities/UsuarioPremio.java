@@ -1,7 +1,6 @@
 package pe.edu.upc.s3155_uwork4.entities;
 
 import jakarta.persistence.*;
-import java.util.Date;
 
 @Entity
 @Table(name = "UsuarioPremio")
@@ -9,7 +8,7 @@ public class UsuarioPremio {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idUsuarioPremio;
+    private int id;
 
     @ManyToOne
     @JoinColumn(name = "idUsuario", nullable = false)
@@ -19,30 +18,21 @@ public class UsuarioPremio {
     @JoinColumn(name = "idPremio", nullable = false)
     private Premio premio;
 
-    @Column(name = "cantidadPremios", nullable = false)
-    private int cantidadPremios;
-
-    @Column(name = "fechaObtencion", nullable = false)
-    @Temporal(TemporalType.DATE)
-    private Date fechaObtencion;
-
     public UsuarioPremio() {
     }
 
-    public UsuarioPremio(int idUsuarioPremio, Usuario usuario, Premio premio, int cantidadPremios, Date fechaObtencion) {
-        this.idUsuarioPremio = idUsuarioPremio;
+    public UsuarioPremio(int id, Usuario usuario, Premio premio) {
+        this.id = id;
         this.usuario = usuario;
         this.premio = premio;
-        this.cantidadPremios = cantidadPremios;
-        this.fechaObtencion = fechaObtencion;
     }
 
-    public int getIdUsuarioPremio() {
-        return idUsuarioPremio;
+    public int getId() {
+        return id;
     }
 
-    public void setIdUsuarioPremio(int idUsuarioPremio) {
-        this.idUsuarioPremio = idUsuarioPremio;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public Usuario getUsuario() {
@@ -60,21 +50,6 @@ public class UsuarioPremio {
     public void setPremio(Premio premio) {
         this.premio = premio;
     }
-
-    public int getCantidadPremios() {
-        return cantidadPremios;
-    }
-
-    public void setCantidadPremios(int cantidadPremios) {
-        this.cantidadPremios = cantidadPremios;
-    }
-
-    public Date getFechaObtencion() {
-        return fechaObtencion;
-    }
-
-    public void setFechaObtencion(Date fechaObtencion) {
-        this.fechaObtencion = fechaObtencion;
-    }
 }
+
 

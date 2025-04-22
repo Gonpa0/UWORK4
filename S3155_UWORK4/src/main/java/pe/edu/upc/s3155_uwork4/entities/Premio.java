@@ -1,6 +1,7 @@
 package pe.edu.upc.s3155_uwork4.entities;
 
 import jakarta.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "Premio")
@@ -8,71 +9,70 @@ public class Premio {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idPremio;
+    private int id;
 
-    @Column(name = "nombrePremio", nullable = false, length = 100)
-    private String nombrePremio;
+    @Column(nullable = false)
+    private int categoria;
 
-    @Column(name = "descripcion", nullable = false, length = 250)
-    private String descripcion;
+    @Column(name = "nombrePrem", nullable = false, length = 50)
+    private String nombrePrem;
 
-    @Column(name = "puntosRequeridos", nullable = false)
-    private int puntosRequeridos;
+    @Column(nullable = false)
+    private int puntos;
 
-    @ManyToOne
-    @JoinColumn(name = "idUsuario", nullable = false)
-    private Usuario usuario;
+    // Relación One to Many con UsuarioPremio
+    @OneToMany(mappedBy = "premio", cascade = CascadeType.ALL)
+    private List<UsuarioPremio> usuarioPremios;
 
     // Constructores
-    public Premio() {
-    }
+    public Premio() {}
 
-    public Premio(int idPremio, String nombrePremio, String descripcion, int puntosRequeridos, Usuario usuario) {
-        this.idPremio = idPremio;
-        this.nombrePremio = nombrePremio;
-        this.descripcion = descripcion;
-        this.puntosRequeridos = puntosRequeridos;
-        this.usuario = usuario;
+    public Premio(int id, int categoria, String nombrePrem, int puntos) {
+        this.id = id;
+        this.categoria = categoria;
+        this.nombrePrem = nombrePrem;
+        this.puntos = puntos;
     }
 
     // Getters y Setters
-    public int getIdPremio() {
-        return idPremio;
+    public int getId() {
+        return id;
     }
 
-    public void setIdPremio(int idPremio) {
-        this.idPremio = idPremio;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public String getNombrePremio() {
-        return nombrePremio;
+    public int getCategoria() {
+        return categoria;
     }
 
-    public void setNombrePremio(String nombrePremio) {
-        this.nombrePremio = nombrePremio;
+    public void setCategoria(int categoria) {
+        this.categoria = categoria;
     }
 
-    public String getDescripcion() {
-        return descripcion;
+    public String getNombrePrem() {
+        return nombrePrem;
     }
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+    public void setNombrePrem(String nombrePrem) {
+        this.nombrePrem = nombrePrem;
     }
 
-    public int getPuntosRequeridos() {
-        return puntosRequeridos;
+    public int getPuntos() {
+        return puntos;
     }
 
-    public void setPuntosRequeridos(int puntosRequeridos) {
-        this.puntosRequeridos = puntosRequeridos;
+    public void setPuntos(int puntos) {
+        this.puntos = puntos;
     }
 
-    public Usuario getUsuario() {
-        return usuario;
+    public List<UsuarioPremio> getUsuarioPremios() {
+        return usuarioPremios;
     }
 
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
+    public void setUsuarioPremios(List<UsuarioPremio> usuarioPremios) {
+        this.usuarioPremios = usuarioPremios;
     }
 }
+

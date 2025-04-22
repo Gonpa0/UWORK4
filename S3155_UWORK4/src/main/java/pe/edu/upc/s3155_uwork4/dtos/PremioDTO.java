@@ -1,49 +1,41 @@
 package pe.edu.upc.s3155_uwork4.dtos;
 
 public class PremioDTO {
-    private int idPremio;
-    private String nombrePremio;
-    private String descripcion;
-    private int puntosRequeridos;
-    private int idUsuario; // Solo se guarda el ID, no el objeto completo
+    private int id;
+    private int categoria;
+    private String nombrePrem;
+    private int puntos;
 
-    public int getIdPremio() {
-        return idPremio;
+    // Getters y Setters
+    public int getId() {
+        return id;
     }
 
-    public void setIdPremio(int idPremio) {
-        this.idPremio = idPremio;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public String getNombrePremio() {
-        return nombrePremio;
+    public int getCategoria() {
+        return categoria;
     }
 
-    public void setNombrePremio(String nombrePremio) {
-        this.nombrePremio = nombrePremio;
+    public void setCategoria(int categoria) {
+        this.categoria = categoria;
     }
 
-    public String getDescripcion() {
-        return descripcion;
+    public String getNombrePrem() {
+        return nombrePrem;
     }
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+    public void setNombrePrem(String nombrePrem) {
+        this.nombrePrem = nombrePrem;
     }
 
-    public int getPuntosRequeridos() {
-        return puntosRequeridos;
+    public int getPuntos() {
+        return puntos;
     }
 
-    public void setPuntosRequeridos(int puntosRequeridos) {
-        this.puntosRequeridos = puntosRequeridos;
-    }
-
-    public int getIdUsuario() {
-        return idUsuario;
-    }
-
-    public void setIdUsuario(int idUsuario) {
-        this.idUsuario = idUsuario;
+    public void setPuntos(int puntos) {
+        this.puntos = puntos;
     }
 }
