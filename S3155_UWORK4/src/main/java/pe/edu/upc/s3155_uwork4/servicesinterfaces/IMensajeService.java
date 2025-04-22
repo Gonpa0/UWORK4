@@ -1,6 +1,5 @@
 package pe.edu.upc.s3155_uwork4.servicesinterfaces;
 
-import pe.edu.upc.s3155_uwork4.entities.Asesoria;
 import pe.edu.upc.s3155_uwork4.entities.Mensaje;
 
 import java.util.List;

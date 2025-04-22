@@ -1,6 +1,5 @@
 package pe.edu.upc.s3155_uwork4.dtos;
 
-import jakarta.persistence.Column;
 
 public class RolDTO {
     private int idRol;
