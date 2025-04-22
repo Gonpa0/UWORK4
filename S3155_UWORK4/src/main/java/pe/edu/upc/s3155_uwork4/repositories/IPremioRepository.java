@@ -6,6 +6,6 @@ import pe.edu.upc.s3155_uwork4.entities.Premio;
 
 @Repository
 public interface IPremioRepository extends JpaRepository<Premio, Integer> {
-
+    // Puedes agregar consultas personalizadas aquí si las necesitas
 }
 

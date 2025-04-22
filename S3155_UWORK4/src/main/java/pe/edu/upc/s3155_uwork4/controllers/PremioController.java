@@ -11,41 +11,43 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/premio")
+@RequestMapping("/premios")
 public class PremioController {
+
     @Autowired
-    private IPremioService pS;
+    private IPremioService premioService;
+
     @GetMapping
     public List<PremioDTO> listar() {
-        return pS.listar().stream().map(x -> {
-            ModelMapper m = new ModelMapper();
-            return m.map(x, PremioDTO.class);
+        return premioService.listar().stream().map(premio -> {
+            ModelMapper modelMapper = new ModelMapper();
+            return modelMapper.map(premio, PremioDTO.class);
         }).collect(Collectors.toList());
     }
 
     @PostMapping
     public void registrar(@RequestBody PremioDTO dto) {
-        ModelMapper m = new ModelMapper();
-        Premio p = m.map(dto, Premio.class);
-        pS.Registrar(p);
+        ModelMapper modelMapper = new ModelMapper();
+        Premio premio = modelMapper.map(dto, Premio.class);
+        premioService.Registrar(premio);
     }
 
     @GetMapping("/{id}")
     public PremioDTO listarPorId(@PathVariable("id") int id) {
-        ModelMapper m = new ModelMapper();
-        PremioDTO dto = m.map(pS.listarporid(id), PremioDTO.class);
+        ModelMapper modelMapper = new ModelMapper();
+        PremioDTO dto = modelMapper.map(premioService.listarporid(id), PremioDTO.class);
         return dto;
     }
 
     @PutMapping
     public void modificar(@RequestBody PremioDTO dto) {
-        ModelMapper m = new ModelMapper();
-        Premio p = m.map(dto, Premio.class);
-        pS.Modificar(p);
+        ModelMapper modelMapper = new ModelMapper();
+        Premio premio = modelMapper.map(dto, Premio.class);
+        premioService.Modificar(premio);
     }
 
     @DeleteMapping("/{id}")
     public void eliminar(@PathVariable("id") int id) {
-        pS.Eliminar(id);
+        premioService.Eliminar(id);
     }
 }
