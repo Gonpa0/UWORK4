@@ -1,8 +1,5 @@
 package pe.edu.upc.s3155_uwork4.dtos;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import pe.edu.upc.s3155_uwork4.entities.Usuario;
 
 import java.time.LocalDateTime;
