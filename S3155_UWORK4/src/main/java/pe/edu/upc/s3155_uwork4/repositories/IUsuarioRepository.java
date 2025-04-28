@@ -6,5 +6,5 @@ import pe.edu.upc.s3155_uwork4.entities.Usuario;
 
 @Repository
 public interface IUsuarioRepository extends JpaRepository<Usuario, Integer> {
-
+    public Usuario findOneByUsername(String nombreUsuario);
 }

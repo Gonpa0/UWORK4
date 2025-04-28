@@ -5,14 +5,15 @@ import pe.edu.upc.s3155_uwork4.entities.Rol;
 
 public class UsuarioDTO {
     private int idUsuario;
-    private String nombreUsuario;
+    private String username;
     private String correo;
-    private String contrasenia;
+    private String password;
     private int ciclo;
     private int puntos;
     private String carrera;
     private String centro_de_estudios;
     private Rol rol;
+    private Boolean estado;
 
     public int getIdUsuario() {
         return idUsuario;
@@ -22,12 +23,12 @@ public class UsuarioDTO {
         this.idUsuario = idUsuario;
     }
 
-    public String getNombreUsuario() {
-        return nombreUsuario;
+    public String getUsername() {
+        return username;
     }
 
-    public void setNombreUsuario(String nombreUsuario) {
-        this.nombreUsuario = nombreUsuario;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getCorreo() {
@@ -38,12 +39,12 @@ public class UsuarioDTO {
         this.correo = correo;
     }
 
-    public String getContrasenia() {
-        return contrasenia;
+    public String getPassword() {
+        return password;
     }
 
-    public void setContrasenia(String contrasenia) {
-        this.contrasenia = contrasenia;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public int getCiclo() {
@@ -84,5 +85,13 @@ public class UsuarioDTO {
 
     public void setRol(Rol rol) {
         this.rol = rol;
+    }
+
+    public Boolean getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Boolean estado) {
+        this.estado = estado;
     }
 }
