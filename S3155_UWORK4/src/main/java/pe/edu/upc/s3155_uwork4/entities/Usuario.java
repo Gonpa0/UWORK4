@@ -9,14 +9,14 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idUsuario;
 
-    @Column(name = "nombreUsuario", nullable = false, length = 50)
-    private String nombreUsuario;
+    @Column(name = "username", nullable = false, length = 100)
+    private String username;
 
-    @Column(name = "correo", nullable = false, length = 50)
+    @Column(name = "correo", nullable = false, length = 100)
     private String correo;
 
-    @Column(name = "contrasenia", nullable = false, length = 50)
-    private String contrasenia;
+    @Column(name = "password", nullable = false, length = 255)
+    private String password;
 
     @Column(name = "ciclo", nullable = false)
     private int ciclo;
@@ -30,26 +30,14 @@ public class Usuario {
     @Column(name = "centro_de_estudios", nullable = false, length = 100)
     private String centro_de_estudios;
 
+    @Column(name = "estado", nullable = false)
+    private Boolean estado;
     @ManyToOne
     @JoinColumn(name = "idRol")
     private Rol rol;
 
 
-    public Usuario() {
-
-    }
-
-    public Usuario(int idUsuario, Rol rol, String centro_de_estudios, String carrera, int puntos, int ciclo, String contrasenia, String correo, String nombreUsuario) {
-        this.idUsuario = idUsuario;
-        this.rol = rol;
-        this.centro_de_estudios = centro_de_estudios;
-        this.carrera = carrera;
-        this.puntos = puntos;
-        this.ciclo = ciclo;
-        this.contrasenia = contrasenia;
-        this.correo = correo;
-        this.nombreUsuario = nombreUsuario;
-    }
+    public Usuario() {}
 
     public int getIdUsuario() {
         return idUsuario;
@@ -59,12 +47,12 @@ public class Usuario {
         this.idUsuario = idUsuario;
     }
 
-    public String getNombreUsuario() {
-        return nombreUsuario;
+    public String getUsername() {
+        return username;
     }
 
-    public void setNombreUsuario(String nombreUsuario) {
-        this.nombreUsuario = nombreUsuario;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getCorreo() {
@@ -75,12 +63,12 @@ public class Usuario {
         this.correo = correo;
     }
 
-    public String getContrasenia() {
-        return contrasenia;
+    public String getPassword() {
+        return password;
     }
 
-    public void setContrasenia(String contrasenia) {
-        this.contrasenia = contrasenia;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public int getCiclo() {
@@ -113,6 +101,14 @@ public class Usuario {
 
     public void setCentro_de_estudios(String centro_de_estudios) {
         this.centro_de_estudios = centro_de_estudios;
+    }
+
+    public Boolean getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Boolean estado) {
+        this.estado = estado;
     }
 
     public Rol getRol() {

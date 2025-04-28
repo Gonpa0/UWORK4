@@ -17,6 +17,8 @@ public class ArchivoController {
     @Autowired
     private IArchivoService aS;
     @GetMapping
+    //@PreAuthorize("hasAnyAuthority(' ',' ')")
+    //@PreAuthorize("hasAuthority(' ')")
     public List<ArchivoDTO> Listar() {
         return aS.listar().stream().map( x->{
             ModelMapper m = new ModelMapper();
