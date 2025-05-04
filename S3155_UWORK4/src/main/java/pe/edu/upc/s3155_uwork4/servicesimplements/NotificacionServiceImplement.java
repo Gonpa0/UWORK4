@@ -10,7 +10,7 @@ import pe.edu.upc.s3155_uwork4.servicesinterfaces.INotificacionService;
 import java.util.List;
 
 @Service
-public class NotificacionServiceImplement implements INotificacionService {
+public class    NotificacionServiceImplement implements INotificacionService {
 
     @Autowired
     private INotificacionRepository nR;
