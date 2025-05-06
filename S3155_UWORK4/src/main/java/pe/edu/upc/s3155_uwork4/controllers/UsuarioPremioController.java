@@ -83,6 +83,17 @@ public class UsuarioPremioController {
     public void eliminar(@PathVariable("id") int id) {
         uPS.Eliminar(id);
     }
+
+    // Buscar usuarios con más de N premios ganados
+    @GetMapping("/usuarios/top")
+    public List<UsuarioPremioDTO> listarUsuariosConMasDeNPremios(@RequestParam("minPremios") int minPremios) {
+        return usuarioPremioService.listarUsuariosConMasDeNPremios(minPremios)
+                .stream()
+                .map(x -> {
+                    ModelMapper m = new ModelMapper();
+                    return m.map(x, UsuarioPremioDTO.class);
+                }).collect(Collectors.toList());
+    }
 }
 
 

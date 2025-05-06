@@ -50,4 +50,19 @@ public class PremioController {
     public void eliminar(@PathVariable("id") int id) {
         premioService.Eliminar(id);
     }
+
+
+    // Buscar premios por fecha y palabra clave en el nombre del premio
+    @GetMapping("/premios/buscar-avanzado")
+    public List<PremioDTO> buscarPremiosPorNombreYFecha(
+            @RequestParam("keyword") String keyword,
+            @RequestParam("fecha") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fecha) {
+
+        return usuarioPremioService.buscarPremiosPorNombreYFecha(keyword, fecha)
+                .stream()
+                .map(x -> {
+                    ModelMapper m = new ModelMapper();
+                    return m.map(x, PremioDTO.class);
+                }).collect(Collectors.toList());
+    }
 }
