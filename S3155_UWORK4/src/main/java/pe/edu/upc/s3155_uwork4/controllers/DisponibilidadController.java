@@ -3,11 +3,13 @@ package pe.edu.upc.s3155_uwork4.controllers;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 import pe.edu.upc.s3155_uwork4.dtos.DisponibilidadDTO;
 import pe.edu.upc.s3155_uwork4.entities.Disponibilidad;
 import pe.edu.upc.s3155_uwork4.servicesinterfaces.IDisponibilidadService;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -50,6 +52,17 @@ public class DisponibilidadController {
     @DeleteMapping( "/{id}")
     public void Eliminar(@PathVariable("id") int id){
         iDisponibilidadService.Eliminar(id);
+    }
+
+    //METODO PARA EL QUERY BUSCAR POR FECHA Y USUARIO
+
+    @GetMapping("/usuario/{id}/fecha/{fecha}")
+    public List<DisponibilidadDTO> obtenerDisponibilidadesPorFecha(@PathVariable("id") int idUsuario,
+                                                                   @PathVariable("fecha") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fecha) {
+        return iDisponibilidadService.buscarPorUsuarioYFecha(idUsuario, fecha).stream().map(d -> {
+            ModelMapper m = new ModelMapper();
+            return m.map(d, DisponibilidadDTO.class);
+        }).collect(Collectors.toList());
     }
 
 }
