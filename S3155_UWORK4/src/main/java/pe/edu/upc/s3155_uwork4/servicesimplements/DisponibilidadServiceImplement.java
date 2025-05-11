@@ -6,6 +6,7 @@ import pe.edu.upc.s3155_uwork4.entities.Disponibilidad;
 import pe.edu.upc.s3155_uwork4.repositories.IDisponibilidadRepository;
 import pe.edu.upc.s3155_uwork4.servicesinterfaces.IDisponibilidadService;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -37,5 +38,11 @@ public class DisponibilidadServiceImplement implements IDisponibilidadService {
     @Override
     public void Eliminar(int id) {
     iDisponibilidadRepository.deleteById(id);
+    }
+
+    //SERVICEIMPLEMENT PARA EL QUERY
+    @Override
+    public List<Disponibilidad> buscarPorUsuarioYFecha(int idUsuario, LocalDate fecha) {
+        return iDisponibilidadRepository.buscarPorUsuarioYFecha(idUsuario, fecha);
     }
 }

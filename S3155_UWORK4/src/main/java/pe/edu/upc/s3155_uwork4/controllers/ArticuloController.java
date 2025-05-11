@@ -52,4 +52,15 @@ public class ArticuloController {
         articuloService.Eliminar(id);
     }
 
+
+    //QUERYS
+
+    // Buscar artículos por palabra clave
+    @GetMapping("/buscar")
+    public List<ArticuloDTO> buscarPorPalabra(@RequestParam("keyword") String keyword) {
+        return articuloService.buscarPorPalabraClave(keyword).stream().map(x -> {
+            ModelMapper m = new ModelMapper();
+            return m.map(x, ArticuloDTO.class);
+        }).collect(Collectors.toList());
+    }
 }
