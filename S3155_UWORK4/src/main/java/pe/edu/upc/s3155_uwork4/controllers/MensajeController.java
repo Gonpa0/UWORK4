@@ -3,11 +3,15 @@ package pe.edu.upc.s3155_uwork4.controllers;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import pe.edu.upc.s3155_uwork4.dtos.BusquedaPalabraMensajesDTO;
 import pe.edu.upc.s3155_uwork4.dtos.MensajeDTO;
 import pe.edu.upc.s3155_uwork4.entities.Mensaje;
 import pe.edu.upc.s3155_uwork4.servicesinterfaces.IMensajeService;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -17,6 +21,7 @@ public class MensajeController {
     @Autowired
     private IMensajeService mS;
     @GetMapping
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR')")
     public List<MensajeDTO> Listar() {
         return mS.listar().stream().map(x->{
             ModelMapper m = new ModelMapper();
@@ -25,12 +30,14 @@ public class MensajeController {
         }).collect(Collectors.toList());
     }
     @PostMapping
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR','ESTUDIANTE SUPERIOR','ESTUDIANTE INFERIOR')")
     public void Registrar(@RequestBody MensajeDTO dto) {
         ModelMapper m = new ModelMapper();
         Mensaje me = m.map(dto, Mensaje.class);
         mS.Registrar(me);
     }
     @GetMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR','ESTUDIANTE SUPERIOR','ESTUDIANTE INFERIOR')")
     public MensajeDTO Listarporid(@PathVariable("id") int id) {
         ModelMapper m = new ModelMapper();
         MensajeDTO dto = m.map(mS.listarporid(id), MensajeDTO.class);
@@ -38,13 +45,35 @@ public class MensajeController {
 
     }
     @PutMapping
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR','ESTUDIANTE SUPERIOR','ESTUDIANTE INFERIOR')")
     public void Modificar(@RequestBody MensajeDTO dto){
         ModelMapper m = new ModelMapper();
         Mensaje me = m.map(dto,Mensaje.class);
         mS.Modificar(me);
     }
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR','ESTUDIANTE SUPERIOR','ESTUDIANTE INFERIOR')")
     public void Eliminar(@PathVariable("id") int id) {
         mS.Eliminar(id);
+    }
+
+
+    @GetMapping ("/BusquedaPalabraMensajes")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR')")
+    public List<BusquedaPalabraMensajesDTO> BusquedaPalabraMensajes()
+    {
+        List<String[]> lista = mS.BusquedaPalabraMensajes();
+        List<BusquedaPalabraMensajesDTO> ListDTO=new ArrayList<>();
+        for(String[] columna:lista){
+            BusquedaPalabraMensajesDTO dto=new BusquedaPalabraMensajesDTO();
+            dto.setId_mensaje(Integer.parseInt(columna[0]));
+            dto.setOrden(Integer.parseInt(columna[1]));
+            dto.setContenido(columna[2]);
+            dto.setFecha_mensaje(LocalDate.parse(columna[3]));
+            dto.setId_asesoria(Integer.parseInt(columna[4]));
+            dto.setId_usuario(Integer.parseInt(columna[5]));
+            ListDTO.add(dto);
+        }
+        return ListDTO;
     }
 }

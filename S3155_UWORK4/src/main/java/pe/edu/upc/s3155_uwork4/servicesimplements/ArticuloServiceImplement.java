@@ -39,4 +39,12 @@ public class ArticuloServiceImplement implements IArticuloService {
     public void Eliminar(int id) {
     articuloRepository.deleteById(id);
     }
+
+    //QUERYS
+
+    @Override
+    public List<Articulo> buscarPorPalabraClave(String keyword) {
+        return articuloRepository.buscarPorPalabraClave(keyword);
+    }
+
 }

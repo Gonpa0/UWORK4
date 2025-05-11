@@ -10,4 +10,8 @@ public interface IArticuloService {
     public Articulo listarporid(int id);
     public void Modificar(Articulo ar);
     public void Eliminar(int id);
+
+    //QUERYS:
+
+    List<Articulo> buscarPorPalabraClave(String keyword);
 }

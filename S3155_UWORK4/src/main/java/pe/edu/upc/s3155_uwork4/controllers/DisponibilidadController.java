@@ -3,11 +3,14 @@ package pe.edu.upc.s3155_uwork4.controllers;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import pe.edu.upc.s3155_uwork4.dtos.DisponibilidadDTO;
 import pe.edu.upc.s3155_uwork4.entities.Disponibilidad;
 import pe.edu.upc.s3155_uwork4.servicesinterfaces.IDisponibilidadService;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,6 +22,7 @@ public class DisponibilidadController {
     private IDisponibilidadService iDisponibilidadService;
 
     @GetMapping
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR')")
     public List<DisponibilidadDTO> Listar() {
         return iDisponibilidadService.listar().stream().map( x->{
             ModelMapper m = new ModelMapper();
@@ -27,6 +31,7 @@ public class DisponibilidadController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR','ESTUDIANTE SUPERIOR','ESTUDIANTE INFERIOR')")
     public void Registrar(@RequestBody DisponibilidadDTO dto){
         ModelMapper m = new ModelMapper();
         Disponibilidad d = m.map(dto, Disponibilidad.class);
@@ -35,12 +40,14 @@ public class DisponibilidadController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR','ESTUDIANTE SUPERIOR','ESTUDIANTE INFERIOR')")
     public DisponibilidadDTO Listarporid(@PathVariable("id") int id){
         ModelMapper m = new ModelMapper();
         DisponibilidadDTO dto = m.map(iDisponibilidadService.listarporid(id),DisponibilidadDTO.class);
         return dto;
     }
     @PutMapping
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR','ESTUDIANTE SUPERIOR','ESTUDIANTE INFERIOR')")
     public void Modificar(@RequestBody DisponibilidadDTO dto){
         ModelMapper m = new ModelMapper();
         Disponibilidad d = m.map(dto,Disponibilidad.class);
@@ -48,8 +55,21 @@ public class DisponibilidadController {
 
     }
     @DeleteMapping( "/{id}")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR','ESTUDIANTE SUPERIOR','ESTUDIANTE INFERIOR')")
     public void Eliminar(@PathVariable("id") int id){
         iDisponibilidadService.Eliminar(id);
+    }
+
+    //METODO PARA EL QUERY BUSCAR POR FECHA Y USUARIO
+
+    @GetMapping("/usuario/{id}/fecha/{fecha}")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR')")
+    public List<DisponibilidadDTO> obtenerDisponibilidadesPorFecha(@PathVariable("id") int idUsuario,
+                                                                   @PathVariable("fecha") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fecha) {
+        return iDisponibilidadService.buscarPorUsuarioYFecha(idUsuario, fecha).stream().map(d -> {
+            ModelMapper m = new ModelMapper();
+            return m.map(d, DisponibilidadDTO.class);
+        }).collect(Collectors.toList());
     }
 
 }
