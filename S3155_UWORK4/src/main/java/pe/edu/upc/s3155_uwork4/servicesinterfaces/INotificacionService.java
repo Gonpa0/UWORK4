@@ -1,6 +1,5 @@
 package pe.edu.upc.s3155_uwork4.servicesinterfaces;
 
-import org.aspectj.weaver.ast.Not;
 import pe.edu.upc.s3155_uwork4.entities.Notificacion;
 
 import java.util.List;
@@ -11,4 +10,5 @@ public interface INotificacionService {
     public Notificacion listarporid(int id);
     public void Modificar(Notificacion n);
     public void Eliminar(int id);
+    public List<String[]> ComparacionPorGrupoCicloPromedioNotificaciones();
 }
