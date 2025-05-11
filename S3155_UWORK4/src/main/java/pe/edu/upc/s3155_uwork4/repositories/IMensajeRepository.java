@@ -22,4 +22,17 @@ public interface IMensajeRepository extends JpaRepository<Mensaje, Integer> {
             "WHERE u.ciclo < 6\n" +
             "  AND LOWER(m.contenido) LIKE '%examen%';", nativeQuery = true)
     public List<String[]> BusquedaPalabraMensajes();
+
+    @Query(value="SELECT  \n" +
+            "  m.id_mensaje,\n" +
+            "  m.orden,\n" +
+            "  m.contenido,\n" +
+            "  m.fecha_mensaje,\n" +
+            "  m.id_asesoria,\n" +
+            "  m.id_usuario\n" +
+            "FROM mensaje m\n" +
+            "JOIN usuario u ON m.id_usuario = u.id_usuario\n" +
+            "WHERE u.ciclo <= 2\n" +
+            "  AND LOWER(m.contenido) LIKE '%tarea%';\n", nativeQuery = true)
+    public List<String[]> Mensajetarea();
 }

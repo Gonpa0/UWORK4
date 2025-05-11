@@ -5,9 +5,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import pe.edu.upc.s3155_uwork4.dtos.AsesoriaDTO;
+import pe.edu.upc.s3155_uwork4.dtos.AsesoriaporfechaDTO;
 import pe.edu.upc.s3155_uwork4.entities.Asesoria;
 import pe.edu.upc.s3155_uwork4.servicesinterfaces.IAsesoriaService;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -51,5 +54,19 @@ public class AsesoriaController {
     @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR','ESTUDIANTE SUPERIOR','ESTUDIANTE INFERIOR')")
     public void Eliminar(@PathVariable("id") int id) {
         aS.Eliminar(id);
+    }
+
+    @GetMapping ("/asesoriaporfecha")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR')")
+    public List<AsesoriaporfechaDTO> Asesoriaporfecha()
+    {
+        List<String[]> lista = aS.Asesoriaporfecha();
+        List<AsesoriaporfechaDTO> ListDTO=new ArrayList<>();
+        for(String[] columna:lista){
+            AsesoriaporfechaDTO dto=new AsesoriaporfechaDTO();
+            dto.setFecha_Asesoria(LocalDate.parse(columna[1]));
+            ListDTO.add(dto);
+        }
+        return ListDTO;
     }
 }
