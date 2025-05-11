@@ -37,4 +37,8 @@ public class AsesoriaServiceImplement implements IAsesoriaService {
         aR.deleteById(id);
     }
 
+    public List<String[]> Asesoriaporfecha() {
+        return aR.Asesoriaporfecha();
+    }
+
 }

@@ -41,4 +41,9 @@ public class MensajeServiceImplement implements IMensajeService {
     public List<String[]> BusquedaPalabraMensajes() {
         return mR.BusquedaPalabraMensajes();
     }
+
+    @Override
+    public List<String[]> Mensajetarea() {
+        return mR.Mensajetarea();
+    }
 }
