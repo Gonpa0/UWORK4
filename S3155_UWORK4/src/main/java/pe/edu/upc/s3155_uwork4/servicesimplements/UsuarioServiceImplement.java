@@ -37,4 +37,9 @@ public class UsuarioServiceImplement implements IUsuarioService {
     public void Eliminar(int id) {
         uR.deleteById(id);
     }
+
+    @Override
+    public List<String[]> ListarUsernameSinPassword() {
+        return uR.ListarUsernameSinPassword();
+    }
 }
