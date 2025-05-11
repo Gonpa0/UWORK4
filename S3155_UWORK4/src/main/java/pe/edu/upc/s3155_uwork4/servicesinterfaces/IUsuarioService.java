@@ -10,4 +10,5 @@ public interface IUsuarioService {
     public Usuario listarporid(int id);
     public void Modificar(Usuario u);
     public void Eliminar(int id);
+    public List<String[]> ListarUsernameSinPassword();
 }

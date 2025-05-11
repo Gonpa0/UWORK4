@@ -3,7 +3,6 @@ package pe.edu.upc.s3155_uwork4.servicesimplements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pe.edu.upc.s3155_uwork4.entities.Notificacion;
-import pe.edu.upc.s3155_uwork4.entities.Usuario;
 import pe.edu.upc.s3155_uwork4.repositories.INotificacionRepository;
 import pe.edu.upc.s3155_uwork4.servicesinterfaces.INotificacionService;
 
@@ -38,4 +37,11 @@ public class    NotificacionServiceImplement implements INotificacionService {
     public void Eliminar(int id) {
         nR.deleteById(id);
     }
+
+    @Override
+    public List<String[]> ComparacionPorGrupoCicloPromedioNotificaciones() {
+        return nR.ComparacionPorGrupoCicloPromedioNotificaciones();
+    }
+
+
 }

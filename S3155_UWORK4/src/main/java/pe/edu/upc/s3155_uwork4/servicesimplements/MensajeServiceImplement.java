@@ -36,4 +36,9 @@ public class MensajeServiceImplement implements IMensajeService {
     public void Eliminar(int id){
         mR.deleteById(id);
     }
+
+    @Override
+    public List<String[]> BusquedaPalabraMensajes() {
+        return mR.BusquedaPalabraMensajes();
+    }
 }

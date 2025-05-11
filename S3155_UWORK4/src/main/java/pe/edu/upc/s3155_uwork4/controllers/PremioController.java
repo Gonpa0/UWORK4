@@ -2,6 +2,7 @@ package pe.edu.upc.s3155_uwork4.controllers;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import pe.edu.upc.s3155_uwork4.dtos.PremioDTO;
 import pe.edu.upc.s3155_uwork4.entities.Premio;
@@ -18,6 +19,7 @@ public class PremioController {
     private IPremioService premioService;
 
     @GetMapping
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR')")
     public List<PremioDTO> listar() {
         return premioService.listar().stream().map(premio -> {
             ModelMapper modelMapper = new ModelMapper();
@@ -26,6 +28,7 @@ public class PremioController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR','ESTUDIANTE SUPERIOR','ESTUDIANTE INFERIOR')")
     public void registrar(@RequestBody PremioDTO dto) {
         ModelMapper modelMapper = new ModelMapper();
         Premio premio = modelMapper.map(dto, Premio.class);
@@ -33,6 +36,7 @@ public class PremioController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR','ESTUDIANTE SUPERIOR','ESTUDIANTE INFERIOR')")
     public PremioDTO listarPorId(@PathVariable("id") int id) {
         ModelMapper modelMapper = new ModelMapper();
         PremioDTO dto = modelMapper.map(premioService.listarporid(id), PremioDTO.class);
@@ -40,6 +44,7 @@ public class PremioController {
     }
 
     @PutMapping
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR','ESTUDIANTE SUPERIOR','ESTUDIANTE INFERIOR')")
     public void modificar(@RequestBody PremioDTO dto) {
         ModelMapper modelMapper = new ModelMapper();
         Premio premio = modelMapper.map(dto, Premio.class);
@@ -47,6 +52,7 @@ public class PremioController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR','ESTUDIANTE SUPERIOR','ESTUDIANTE INFERIOR')")
     public void eliminar(@PathVariable("id") int id) {
         premioService.Eliminar(id);
     }
