@@ -36,4 +36,10 @@ public class FormatoArchivoServiceImplement implements IFormatoArchivoService {
     public void Eliminar(int id){
         faR.deleteById(id);
     }
+
+    //QUERY CONSULTAR FORMATO "STRING"
+    public List<FormatoArchivo>buscarArchivoPorExtension(String extension ){
+        return faR.buscarArchivoPorExtension("string");
+    }
+
 }

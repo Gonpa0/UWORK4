@@ -6,6 +6,7 @@ import pe.edu.upc.s3155_uwork4.entities.Archivo;
 import pe.edu.upc.s3155_uwork4.repositories.IArchivoRepository;
 import pe.edu.upc.s3155_uwork4.servicesinterfaces.IArchivoService;
 
+import java.time.LocalDate;
 import java.util.List;
 @Service
 public class ArchivoServiceImplement implements IArchivoService {
@@ -35,5 +36,11 @@ public class ArchivoServiceImplement implements IArchivoService {
     @Override
     public void Eliminar(int id) {
         archivoRepository.deleteById(id);
+    }
+
+    //QUERY
+    @Override
+    public List<Archivo> buscarPorIDYFecha(int idUsuario, LocalDate fechaSubida) {
+        return archivoRepository.buscarPorIDYFecha(idUsuario, fechaSubida);
     }
 }
