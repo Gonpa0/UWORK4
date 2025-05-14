@@ -11,5 +11,6 @@ public interface IAsesoriaService {
     public void Modificar(Asesoria a);
     public void Eliminar(int id);
     public List<String[]> Asesoriaporfecha();
+    public List<String[]> Asesoriadespuesdeciertafecha();
 
 }
