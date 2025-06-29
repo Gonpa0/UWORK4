@@ -2,12 +2,15 @@ package pe.edu.upc.s3155_uwork4.controllers;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import pe.edu.upc.s3155_uwork4.dtos.ArchivoDTO;
 import pe.edu.upc.s3155_uwork4.dtos.FormatoArchivoDTO;
 import pe.edu.upc.s3155_uwork4.entities.FormatoArchivo;
 import pe.edu.upc.s3155_uwork4.servicesinterfaces.IFormatoArchivoService;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -50,5 +53,18 @@ public class FormatoArchivoController {
     @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR','ESTUDIANTE SUPERIOR','ESTUDIANTE INFERIOR')")
     public void Eliminar(@PathVariable("id") int id){
         faS.Eliminar(id);
+    }
+
+    //QUERY
+
+    //Consultar formato de archivos subidos por la extension "string"
+    @GetMapping("/extension/{extension}")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR','ESTUDIANTE SUPERIOR','ESTUDIANTE INFERIOR')")
+    public List<FormatoArchivoDTO> buscarArchivoPorExtension(@PathVariable("extension") String extension){
+
+        return faS.buscarArchivoPorExtension(extension).stream().map(x -> {
+            ModelMapper m = new ModelMapper();
+            return m.map(x, FormatoArchivoDTO.class);
+        }).collect(Collectors.toList());
     }
 }
