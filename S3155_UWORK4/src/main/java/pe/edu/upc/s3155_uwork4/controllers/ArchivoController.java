@@ -2,13 +2,17 @@ package pe.edu.upc.s3155_uwork4.controllers;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import pe.edu.upc.s3155_uwork4.dtos.ArchivoDTO;
 import pe.edu.upc.s3155_uwork4.entities.Archivo;
 import pe.edu.upc.s3155_uwork4.servicesinterfaces.IArchivoService;
 
+import java.util.Optional;
 
+
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -52,4 +56,18 @@ public class ArchivoController {
     public void Eliminar(@PathVariable("id") int id){
         aS.Eliminar(id);
     }
+
+    //QUERYS
+
+    // Buscar archivos por id y fecha de subida
+    @GetMapping("/idUsuario/{id}/fechaSubida/{fechaSubida}")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR','ESTUDIANTE SUPERIOR','ESTUDIANTE INFERIOR')")
+    public List<ArchivoDTO> ObtenerIDYFecha(@PathVariable("id") int idUsuario,
+                                              @PathVariable("fechaSubida") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fechaSubida) {
+        return aS.buscarPorIDYFecha(idUsuario, fechaSubida).stream().map(x -> {
+            ModelMapper m = new ModelMapper();
+            return m.map(x, ArchivoDTO.class);
+        }).collect(Collectors.toList());
+    }
 }
+

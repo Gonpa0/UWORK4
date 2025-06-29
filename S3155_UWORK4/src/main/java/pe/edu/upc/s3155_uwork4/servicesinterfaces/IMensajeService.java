@@ -11,4 +11,5 @@ public interface IMensajeService {
     public void Modificar(Mensaje me);
     public void Eliminar(int id);
     public List<String[]> BusquedaPalabraMensajes();
+    public List<String[]> Mensajetarea();
 }
