@@ -32,7 +32,7 @@ public interface IMensajeRepository extends JpaRepository<Mensaje, Integer> {
             "  m.id_usuario\n" +
             "FROM mensaje m\n" +
             "JOIN usuario u ON m.id_usuario = u.id_usuario\n" +
-            "WHERE u.ciclo <= 2\n" +
+            "WHERE u.ciclo <6\n" +
             "  AND LOWER(m.contenido) LIKE '%tarea%';\n", nativeQuery = true)
     public List<String[]> Mensajetarea();
 }

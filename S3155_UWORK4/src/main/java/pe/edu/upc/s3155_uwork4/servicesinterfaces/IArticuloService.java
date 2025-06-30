@@ -14,4 +14,5 @@ public interface IArticuloService {
     //QUERYS:
 
     List<Articulo> buscarPorPalabraClave(String keyword);
+    List<Articulo> buscarporAutor(String nombreAutor);
 }

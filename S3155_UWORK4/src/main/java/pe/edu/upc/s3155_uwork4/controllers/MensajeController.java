@@ -79,7 +79,7 @@ public class MensajeController {
     }
 
     @GetMapping ("/mensajetarea")
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR')")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR','ESTUDIANTE SUPERIOR','ESTUDIANTE INFERIOR')")
     public List<MensajetareaDTO> Mensajetarea()
     {
         List<String[]> lista = mS.Mensajetarea();

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import pe.edu.upc.s3155_uwork4.dtos.ArticuloDTO;
+import pe.edu.upc.s3155_uwork4.dtos.BuscarporAutorDTO;
 import pe.edu.upc.s3155_uwork4.entities.Articulo;
 import pe.edu.upc.s3155_uwork4.servicesinterfaces.IArticuloService;
 
@@ -69,5 +70,16 @@ public class ArticuloController {
             ModelMapper m = new ModelMapper();
             return m.map(x, ArticuloDTO.class);
         }).collect(Collectors.toList());
+    }
+
+    //Buscar articulo por autor
+    @GetMapping ("/articulo_autor")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR','ESTUDIANTE SUPERIOR','ESTUDIANTE INFERIOR')")
+    public List<BuscarporAutorDTO> buscarporAutor(@RequestParam("nombreAutor") String nombreAutor) {
+        return articuloService.buscarporAutor(nombreAutor).stream().map(x -> {
+            ModelMapper m = new ModelMapper();
+            return m.map(x, BuscarporAutorDTO.class);
+        }).collect(Collectors.toList());
+
     }
 }

@@ -15,15 +15,6 @@ public interface IAsesoriaRepository extends JpaRepository<Asesoria, Integer> {
             "GROUP BY fecha_asesoria \n" +
             "ORDER BY fecha_asesoria;", nativeQuery = true)
     public List<String[]> Asesoriaporfecha();
-    @Query(value="SELECT  \n" +
-            "  m.id_mensaje,\n" +
-            "  m.contenido,\n" +
-            "  m.fecha_mensaje,\n" +
-            "  a.id_asesoria,\n" +
-            "  a.fecha_registro\n" +
-            "FROM mensaje m\n" +
-            "JOIN asesoria a ON m.id_asesoria = a.id_asesoria\n" +
-            "WHERE a.fecha_registro > '2025-03-15';\n", nativeQuery = true)
-    public List<String[]> Asesoriadespuesdeciertafecha();
+
 
 }

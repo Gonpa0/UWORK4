@@ -40,8 +40,6 @@ public class AsesoriaServiceImplement implements IAsesoriaService {
     public List<String[]> Asesoriaporfecha() {
         return aR.Asesoriaporfecha();
     }
-    public List<String[]> Asesoriadespuesdeciertafecha() {
-        return aR.Asesoriadespuesdeciertafecha();
-    }
+
 
 }
