@@ -20,7 +20,6 @@ public class AsesoriaController {
     @Autowired
     private IAsesoriaService aS;
     @GetMapping
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR')")
     public List<AsesoriaDTO> Listar() {
         return aS.listar().stream().map(x->{
             ModelMapper m = new ModelMapper();
@@ -29,14 +28,12 @@ public class AsesoriaController {
         }).collect(Collectors.toList());
     }
     @PostMapping
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR','ESTUDIANTE SUPERIOR','ESTUDIANTE INFERIOR')")
     public void Registrar(@RequestBody AsesoriaDTO dto) {
         ModelMapper m = new ModelMapper();
         Asesoria a = m.map(dto, Asesoria.class);
         aS.Registrar(a);
     }
     @GetMapping("/{id}")
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR')")
     public AsesoriaDTO Listarporid(@PathVariable("id") int id) {
         ModelMapper m = new ModelMapper();
         AsesoriaDTO dto = m.map(aS.listarporid(id), AsesoriaDTO.class);
@@ -44,20 +41,17 @@ public class AsesoriaController {
 
     }
     @PutMapping
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR','ESTUDIANTE SUPERIOR','ESTUDIANTE INFERIOR')")
     public void Modificar(@RequestBody AsesoriaDTO dto){
         ModelMapper m = new ModelMapper();
         Asesoria a = m.map(dto,Asesoria.class);
         aS.Modificar(a);
     }
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR','ESTUDIANTE SUPERIOR','ESTUDIANTE INFERIOR')")
     public void Eliminar(@PathVariable("id") int id) {
         aS.Eliminar(id);
     }
 
     @GetMapping ("/asesoriaporfecha")
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR')")
     public List<AsesoriaporfechaDTO> Asesoriaporfecha()
     {
         List<String[]> lista = aS.Asesoriaporfecha();

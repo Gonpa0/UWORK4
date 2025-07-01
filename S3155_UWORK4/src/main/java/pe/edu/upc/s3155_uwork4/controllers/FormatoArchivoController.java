@@ -20,7 +20,6 @@ public class FormatoArchivoController {
     @Autowired
     private IFormatoArchivoService faS;
     @GetMapping
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR')")
     public List<FormatoArchivoDTO> Listar() {
         return faS.listar().stream().map( x->{
             ModelMapper m = new ModelMapper();
@@ -28,21 +27,18 @@ public class FormatoArchivoController {
         }).collect(Collectors.toList());
     }
     @PostMapping
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR','ESTUDIANTE SUPERIOR','ESTUDIANTE INFERIOR')")
     public void Registrar(@RequestBody FormatoArchivoDTO dto){
         ModelMapper m = new ModelMapper();
         FormatoArchivo fa = m.map(dto,FormatoArchivo.class);
         faS.Registrar(fa);
     }
     @GetMapping("/{id}")
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR','ESTUDIANTE SUPERIOR','ESTUDIANTE INFERIOR')")
     public FormatoArchivoDTO Listarporid(@PathVariable("id") int id){
         ModelMapper m = new ModelMapper();
         FormatoArchivoDTO dto = m.map(faS.listarporid(id),FormatoArchivoDTO.class);
         return dto;
     }
     @PutMapping
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR','ESTUDIANTE SUPERIOR','ESTUDIANTE INFERIOR')")
     public void Modificar(@RequestBody FormatoArchivo dto){
         ModelMapper m = new ModelMapper();
         FormatoArchivo fa = m.map(dto,FormatoArchivo.class);
@@ -50,7 +46,6 @@ public class FormatoArchivoController {
 
     }
     @DeleteMapping( "/{id}")
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR','ESTUDIANTE SUPERIOR','ESTUDIANTE INFERIOR')")
     public void Eliminar(@PathVariable("id") int id){
         faS.Eliminar(id);
     }
