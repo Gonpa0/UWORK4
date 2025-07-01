@@ -22,7 +22,6 @@ public class MensajeController {
     @Autowired
     private IMensajeService mS;
     @GetMapping
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR')")
     public List<MensajeDTO> Listar() {
         return mS.listar().stream().map(x->{
             ModelMapper m = new ModelMapper();
@@ -31,14 +30,12 @@ public class MensajeController {
         }).collect(Collectors.toList());
     }
     @PostMapping
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR','ESTUDIANTE SUPERIOR','ESTUDIANTE INFERIOR')")
     public void Registrar(@RequestBody MensajeDTO dto) {
         ModelMapper m = new ModelMapper();
         Mensaje me = m.map(dto, Mensaje.class);
         mS.Registrar(me);
     }
     @GetMapping("/{id}")
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR','ESTUDIANTE SUPERIOR','ESTUDIANTE INFERIOR')")
     public MensajeDTO Listarporid(@PathVariable("id") int id) {
         ModelMapper m = new ModelMapper();
         MensajeDTO dto = m.map(mS.listarporid(id), MensajeDTO.class);
@@ -46,21 +43,18 @@ public class MensajeController {
 
     }
     @PutMapping
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR','ESTUDIANTE SUPERIOR','ESTUDIANTE INFERIOR')")
     public void Modificar(@RequestBody MensajeDTO dto){
         ModelMapper m = new ModelMapper();
         Mensaje me = m.map(dto,Mensaje.class);
         mS.Modificar(me);
     }
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR','ESTUDIANTE SUPERIOR','ESTUDIANTE INFERIOR')")
     public void Eliminar(@PathVariable("id") int id) {
         mS.Eliminar(id);
     }
 
 
     @GetMapping ("/BusquedaPalabraMensajes")
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR')")
     public List<BusquedaPalabraMensajesDTO> BusquedaPalabraMensajes()
     {
         List<String[]> lista = mS.BusquedaPalabraMensajes();
@@ -80,7 +74,6 @@ public class MensajeController {
 
     //SE TIENE QUE CREAR OTRO QUERY - ARIANA
     @GetMapping ("/mensajetarea")
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR')")
     public List<MensajetareaDTO> Mensajetarea()
     {
         List<String[]> lista = mS.Mensajetarea();

@@ -20,7 +20,6 @@ public class ArticuloController {
     private IArticuloService articuloService;
 
     @GetMapping
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR')")
     public List<ArticuloDTO> Listar() {
         return articuloService.listar().stream().map( x->{
             ModelMapper m = new ModelMapper();
@@ -29,7 +28,6 @@ public class ArticuloController {
     }
 
     @PostMapping
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR','ESTUDIANTE SUPERIOR','ESTUDIANTE INFERIOR')")
     public void Registrar(@RequestBody ArticuloDTO dto){
         ModelMapper m = new ModelMapper();
         Articulo ar = m.map(dto,Articulo.class);
@@ -37,7 +35,6 @@ public class ArticuloController {
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR','ESTUDIANTE SUPERIOR','ESTUDIANTE INFERIOR')")
     public ArticuloDTO Listarporid(@PathVariable("id") int id){
         ModelMapper m = new ModelMapper();
         ArticuloDTO dto = m.map(articuloService.listarporid(id),ArticuloDTO.class);
@@ -45,7 +42,6 @@ public class ArticuloController {
     }
 
     @PutMapping
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR','ESTUDIANTE SUPERIOR','ESTUDIANTE INFERIOR')")
     public void Modificar(@RequestBody ArticuloDTO dto){
         ModelMapper m = new ModelMapper();
         Articulo ar = m.map(dto,Articulo.class);
@@ -53,7 +49,6 @@ public class ArticuloController {
     }
 
     @DeleteMapping( "/{id}")
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR','ESTUDIANTE SUPERIOR','ESTUDIANTE INFERIOR')")
     public void Eliminar(@PathVariable("id") int id){
         articuloService.Eliminar(id);
     }
@@ -63,7 +58,6 @@ public class ArticuloController {
 
     // Buscar artículos por palabra clave
     @GetMapping("/buscar")
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR','ESTUDIANTE SUPERIOR','ESTUDIANTE INFERIOR')")
     public List<ArticuloDTO> buscarPorPalabra(@RequestParam("keyword") String keyword) {
         return articuloService.buscarPorPalabraClave(keyword).stream().map(x -> {
             ModelMapper m = new ModelMapper();

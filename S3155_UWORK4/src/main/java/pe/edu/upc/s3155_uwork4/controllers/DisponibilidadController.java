@@ -22,7 +22,6 @@ public class DisponibilidadController {
     private IDisponibilidadService iDisponibilidadService;
 
     @GetMapping
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR')")
     public List<DisponibilidadDTO> Listar() {
         return iDisponibilidadService.listar().stream().map( x->{
             ModelMapper m = new ModelMapper();
@@ -31,7 +30,6 @@ public class DisponibilidadController {
     }
 
     @PostMapping
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR','ESTUDIANTE SUPERIOR','ESTUDIANTE INFERIOR')")
     public void Registrar(@RequestBody DisponibilidadDTO dto){
         ModelMapper m = new ModelMapper();
         Disponibilidad d = m.map(dto, Disponibilidad.class);
@@ -40,14 +38,12 @@ public class DisponibilidadController {
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR','ESTUDIANTE SUPERIOR','ESTUDIANTE INFERIOR')")
     public DisponibilidadDTO Listarporid(@PathVariable("id") int id){
         ModelMapper m = new ModelMapper();
         DisponibilidadDTO dto = m.map(iDisponibilidadService.listarporid(id),DisponibilidadDTO.class);
         return dto;
     }
     @PutMapping
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR','ESTUDIANTE SUPERIOR','ESTUDIANTE INFERIOR')")
     public void Modificar(@RequestBody DisponibilidadDTO dto){
         ModelMapper m = new ModelMapper();
         Disponibilidad d = m.map(dto,Disponibilidad.class);
@@ -55,7 +51,6 @@ public class DisponibilidadController {
 
     }
     @DeleteMapping( "/{id}")
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR','ESTUDIANTE SUPERIOR','ESTUDIANTE INFERIOR')")
     public void Eliminar(@PathVariable("id") int id){
         iDisponibilidadService.Eliminar(id);
     }
@@ -63,7 +58,6 @@ public class DisponibilidadController {
     //METODO PARA EL QUERY BUSCAR POR FECHA Y USUARIO
 
     @GetMapping("/usuario/{id}/fecha/{fecha}")
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR')")
     public List<DisponibilidadDTO> obtenerDisponibilidadesPorFecha(@PathVariable("id") int idUsuario,
                                                                    @PathVariable("fecha") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fecha) {
         return iDisponibilidadService.buscarPorUsuarioYFecha(idUsuario, fecha).stream().map(d -> {

@@ -22,7 +22,6 @@ public class ArchivoController {
     @Autowired
     private IArchivoService aS;
     @GetMapping
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR')")
     public List<ArchivoDTO> Listar() {
         return aS.listar().stream().map( x->{
             ModelMapper m = new ModelMapper();
@@ -30,21 +29,18 @@ public class ArchivoController {
         }).collect(Collectors.toList());
     }
     @PostMapping
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR','ESTUDIANTE SUPERIOR','ESTUDIANTE INFERIOR')")
     public void Registrar(@RequestBody ArchivoDTO dto){
         ModelMapper m = new ModelMapper();
         Archivo arch = m.map(dto,Archivo.class);
         aS.Registrar(arch);
     }
     @GetMapping("/{id}")
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR')")
     public ArchivoDTO Listarporid(@PathVariable("id") int id){
         ModelMapper m = new ModelMapper();
         ArchivoDTO dto = m.map(aS.listarporid(id),ArchivoDTO.class);
         return dto;
     }
     @PutMapping
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR','ESTUDIANTE SUPERIOR','ESTUDIANTE INFERIOR')")
     public void Modificar(@RequestBody Archivo dto){
         ModelMapper m = new ModelMapper();
         Archivo arch = m.map(dto, Archivo.class);
@@ -52,7 +48,6 @@ public class ArchivoController {
 
     }
     @DeleteMapping( "/{id}")
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR','ESTUDIANTE SUPERIOR','ESTUDIANTE INFERIOR')")
     public void Eliminar(@PathVariable("id") int id){
         aS.Eliminar(id);
     }
@@ -61,7 +56,6 @@ public class ArchivoController {
 
     // Buscar archivos por id y fecha de subida
     @GetMapping("/idUsuario/{id}/fechaSubida/{fechaSubida}")
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR','ESTUDIANTE SUPERIOR','ESTUDIANTE INFERIOR')")
     public List<ArchivoDTO> ObtenerIDYFecha(@PathVariable("id") int idUsuario,
                                               @PathVariable("fechaSubida") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fechaSubida) {
         return aS.buscarPorIDYFecha(idUsuario, fechaSubida).stream().map(x -> {
