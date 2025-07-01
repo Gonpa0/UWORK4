@@ -47,4 +47,9 @@ public class ArticuloServiceImplement implements IArticuloService {
         return articuloRepository.buscarPorPalabraClave(keyword);
     }
 
+    @Override
+    public List<Articulo> buscarporAutor(String nombreAutor) {
+        return articuloRepository.buscarporAutor(nombreAutor);
+    }
+
 }

@@ -16,4 +16,6 @@ public interface IArticuloRepository extends JpaRepository<Articulo,Integer> {
     @Query("SELECT a FROM Articulo a WHERE LOWER(a.titulo) LIKE LOWER(CONCAT('%', :keyword, '%')) OR LOWER(a.contenido) LIKE LOWER(CONCAT('%', :keyword, '%'))")
     List<Articulo> buscarPorPalabraClave(@Param("keyword") String keyword);
 
+    @Query("SELECT a FROM Articulo a WHERE a.autor = :nombreAutor")
+    List<Articulo> buscarporAutor(@Param("nombreAutor") String nombreAutor);
 }
