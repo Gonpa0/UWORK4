@@ -11,9 +11,5 @@ import java.util.List;
 @Repository
 public interface IFormatoArchivoRepository extends JpaRepository<FormatoArchivo, Integer> {
 
-    //QUERY
-    @Query("SELECT me FROM FormatoArchivo me WHERE me.extension = :extension")
-    List<FormatoArchivo> buscarArchivoPorExtension(@Param("extension") String extension);
-
 
 }

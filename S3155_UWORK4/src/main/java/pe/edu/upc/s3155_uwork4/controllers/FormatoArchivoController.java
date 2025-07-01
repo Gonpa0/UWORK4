@@ -55,16 +55,4 @@ public class FormatoArchivoController {
         faS.Eliminar(id);
     }
 
-    //QUERY
-
-    //Consultar formato de archivos subidos por la extension "string"
-    @GetMapping("/extension/{extension}")
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR','ESTUDIANTE SUPERIOR','ESTUDIANTE INFERIOR')")
-    public List<FormatoArchivoDTO> buscarArchivoPorExtension(@PathVariable("extension") String extension){
-
-        return faS.buscarArchivoPorExtension(extension).stream().map(x -> {
-            ModelMapper m = new ModelMapper();
-            return m.map(x, FormatoArchivoDTO.class);
-        }).collect(Collectors.toList());
-    }
 }

@@ -54,6 +54,8 @@ public class NotificacionController {
     public void Eliminar(@PathVariable("id") int id){
         nS.Eliminar(id);
     }
+
+
     @GetMapping ("/promedio_notificacion")
     @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR')")
     public List<PromedioNotificacionesDTO> ComparacionPorGrupoCicloPromedioNotificaciones()

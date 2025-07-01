@@ -78,6 +78,7 @@ public class MensajeController {
         return ListDTO;
     }
 
+    //SE TIENE QUE CREAR OTRO QUERY - ARIANA
     @GetMapping ("/mensajetarea")
     @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR')")
     public List<MensajetareaDTO> Mensajetarea()
