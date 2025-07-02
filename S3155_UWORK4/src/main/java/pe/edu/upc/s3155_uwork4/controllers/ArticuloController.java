@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import pe.edu.upc.s3155_uwork4.dtos.ArticuloDTO;
+import pe.edu.upc.s3155_uwork4.dtos.BuscarporAutorDTO;
 import pe.edu.upc.s3155_uwork4.entities.Articulo;
 import pe.edu.upc.s3155_uwork4.servicesinterfaces.IArticuloService;
 
@@ -20,7 +21,6 @@ public class ArticuloController {
     private IArticuloService articuloService;
 
     @GetMapping
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR')")
     public List<ArticuloDTO> Listar() {
         return articuloService.listar().stream().map( x->{
             ModelMapper m = new ModelMapper();
@@ -29,7 +29,6 @@ public class ArticuloController {
     }
 
     @PostMapping
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR','ESTUDIANTE SUPERIOR','ESTUDIANTE INFERIOR')")
     public void Registrar(@RequestBody ArticuloDTO dto){
         ModelMapper m = new ModelMapper();
         Articulo ar = m.map(dto,Articulo.class);
@@ -37,7 +36,6 @@ public class ArticuloController {
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR','ESTUDIANTE SUPERIOR','ESTUDIANTE INFERIOR')")
     public ArticuloDTO Listarporid(@PathVariable("id") int id){
         ModelMapper m = new ModelMapper();
         ArticuloDTO dto = m.map(articuloService.listarporid(id),ArticuloDTO.class);
@@ -45,7 +43,6 @@ public class ArticuloController {
     }
 
     @PutMapping
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR','ESTUDIANTE SUPERIOR','ESTUDIANTE INFERIOR')")
     public void Modificar(@RequestBody ArticuloDTO dto){
         ModelMapper m = new ModelMapper();
         Articulo ar = m.map(dto,Articulo.class);
@@ -53,7 +50,6 @@ public class ArticuloController {
     }
 
     @DeleteMapping( "/{id}")
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR','ESTUDIANTE SUPERIOR','ESTUDIANTE INFERIOR')")
     public void Eliminar(@PathVariable("id") int id){
         articuloService.Eliminar(id);
     }
@@ -63,11 +59,21 @@ public class ArticuloController {
 
     // Buscar artículos por palabra clave
     @GetMapping("/buscar")
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR','ESTUDIANTE SUPERIOR','ESTUDIANTE INFERIOR')")
     public List<ArticuloDTO> buscarPorPalabra(@RequestParam("keyword") String keyword) {
         return articuloService.buscarPorPalabraClave(keyword).stream().map(x -> {
             ModelMapper m = new ModelMapper();
             return m.map(x, ArticuloDTO.class);
         }).collect(Collectors.toList());
+    }
+
+    //Buscar articulo por autor
+    @GetMapping ("/articulo_autor")
+    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR','ESTUDIANTE SUPERIOR','ESTUDIANTE INFERIOR')")
+    public List<BuscarporAutorDTO> buscarporAutor(@RequestParam("nombreAutor") String nombreAutor) {
+        return articuloService.buscarporAutor(nombreAutor).stream().map(x -> {
+            ModelMapper m = new ModelMapper();
+            return m.map(x, BuscarporAutorDTO.class);
+        }).collect(Collectors.toList());
+
     }
 }

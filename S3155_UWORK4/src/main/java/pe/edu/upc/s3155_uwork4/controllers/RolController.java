@@ -17,7 +17,6 @@ public class RolController {
     @Autowired
     private IRolService rS;
     @GetMapping
-    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public List<RolDTO> Listar() {
         return rS.listar().stream().map( x->{
             ModelMapper m = new ModelMapper();
@@ -25,7 +24,6 @@ public class RolController {
         }).collect(Collectors.toList());
     }
     @PostMapping
-    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public void Registrar(@RequestBody RolDTO dto){
         ModelMapper m = new ModelMapper();
         Rol r = m.map(dto,Rol.class);
@@ -33,14 +31,12 @@ public class RolController {
 
     }
     @GetMapping("/{id}")
-    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public RolDTO Listarporid(@PathVariable("id") int id){
         ModelMapper m = new ModelMapper();
         RolDTO dto = m.map(rS.listarporid(id),RolDTO.class);
         return dto;
     }
     @PutMapping
-    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public void Modificar(@RequestBody RolDTO dto){
         ModelMapper m = new ModelMapper();
         Rol r = m.map(dto,Rol.class);
@@ -48,7 +44,6 @@ public class RolController {
 
     }
     @DeleteMapping( "/{id}")
-    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public void Eliminar(@PathVariable("id") int id){
         rS.Eliminar(id);
     }

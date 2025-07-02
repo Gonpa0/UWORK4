@@ -1,7 +1,9 @@
 package pe.edu.upc.s3155_uwork4.servicesinterfaces;
 
+import pe.edu.upc.s3155_uwork4.entities.Archivo;
 import pe.edu.upc.s3155_uwork4.entities.FormatoArchivo;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface IFormatoArchivoService {
@@ -10,4 +12,5 @@ public interface IFormatoArchivoService {
     public FormatoArchivo listarporid(int id);
     public void Modificar(FormatoArchivo fa);
     public void Eliminar(int id);
+
 }

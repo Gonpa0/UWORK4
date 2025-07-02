@@ -16,8 +16,8 @@ public class Mensaje {
     @Column(name = "fechaMensaje", nullable = false)
     private LocalDate fechaMensaje;
 
-    @Column(name = "Orden", nullable = false)
-    private int Orden;
+    @Column(name = "orden", nullable = false)
+    private int orden;
 
     @ManyToOne
     @JoinColumn(name = "idUsuario" )
@@ -33,7 +33,7 @@ public class Mensaje {
         this.idMensaje = idMensaje;
         this.contenido = contenido;
         this.fechaMensaje = fechaMensaje;
-        Orden = orden;
+        this.orden = orden;
         this.usuario = usuario;
         this.asesoria = asesoria;
     }
@@ -63,11 +63,11 @@ public class Mensaje {
     }
 
     public int getOrden() {
-        return Orden;
+        return orden;
     }
 
     public void setOrden(int orden) {
-        Orden = orden;
+        this.orden = orden;
     }
 
     public Usuario getUsuario() {

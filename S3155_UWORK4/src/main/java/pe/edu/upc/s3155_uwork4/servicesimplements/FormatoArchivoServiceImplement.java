@@ -36,4 +36,6 @@ public class FormatoArchivoServiceImplement implements IFormatoArchivoService {
     public void Eliminar(int id){
         faR.deleteById(id);
     }
+
+
 }

@@ -10,4 +10,9 @@ public interface IArchivoService {
     public Archivo listarporid(int id);
     public void Modificar(Archivo arch);
     public void Eliminar(int id);
+
+    //LISTAR ARCHIVOS POR ID DE ASESORIA - SERVIRA PARA MI COMPONENTE CHAT ASESORIA DEL FRONT END
+
+    public List<Archivo> listarPorAsesoria(int idAsesoria);
+
 }
