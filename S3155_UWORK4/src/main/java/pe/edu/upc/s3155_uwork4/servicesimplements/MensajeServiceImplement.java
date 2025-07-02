@@ -43,7 +43,7 @@ public class MensajeServiceImplement implements IMensajeService {
     }
 
     @Override
-    public List<String[]> Mensajetarea() {
-        return mR.Mensajetarea();
+    public List<Mensaje> listarPorAsesoriaId(int idAsesoria) {
+        return mR.listarPorAsesoriaId(idAsesoria);
     }
 }
