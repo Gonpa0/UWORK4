@@ -15,7 +15,9 @@ import pe.edu.upc.s3155_uwork4.servicesinterfaces.IArchivoService;
 
 
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestController
@@ -59,7 +61,7 @@ public class ArchivoController {
     // Subir un archivo local desde el frontend y guarda sus metadatos (nombre, fecha, usuario, asesoría, formato) en la BD.
 
     @PostMapping("/upload")
-    public ResponseEntity<String> subirArchivo(
+    public ResponseEntity<Map<String, String>> subirArchivo(
             @RequestParam("archivo") MultipartFile archivo,
             @RequestParam("idUsuario") int idUsuario,
             @RequestParam("idAsesoria") int idAsesoria,
@@ -82,15 +84,22 @@ public class ArchivoController {
             f.setId(idFormato);
             nuevo.setFormatoArchivo(f);
 
-            // Guarda el archivo físico si lo deseas (opcional):
+            // Opcional: guardar archivo físico
             // Path path = Paths.get("uploads/" + archivo.getOriginalFilename());
             // Files.write(path, archivo.getBytes());
 
-            aS.Registrar(nuevo); // Guarda en BD (solo metadatos)
-            return ResponseEntity.ok("Archivo subido correctamente");
+            aS.Registrar(nuevo); // Guarda solo los metadatos
+
+            // ✅ Respuesta JSON
+            Map<String, String> response = new HashMap<>();
+            response.put("mensaje", "Archivo subido correctamente");
+
+            return ResponseEntity.ok(response);
+
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Error al subir archivo: " + e.getMessage());
+            Map<String, String> error = new HashMap<>();
+            error.put("error", "Error al subir archivo: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error);
         }
     }
 
