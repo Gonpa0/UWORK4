@@ -58,7 +58,8 @@ public class AsesoriaController {
     }
 
 
-    //  @PreAuthorize("hasAuthority('DESARROLLADOR') or hasAuthority('ADMIN') or hasAuthority('ESTUDIANTEINFERIOR')")
+    @PreAuthorize("hasAuthority('DESARROLLADOR') or hasAuthority('ADMIN') or hasAuthority('ESTUDIANTEINFERIOR')")
+
     @GetMapping ("/asesoriaporfecha")
     public List<AsesoriaporfechaDTO> Asesoriaporfecha()
     {
