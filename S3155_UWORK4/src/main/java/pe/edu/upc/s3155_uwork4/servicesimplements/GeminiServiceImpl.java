@@ -26,7 +26,7 @@ public class GeminiServiceImpl implements GeminiServiceInterface {
     @Override
     public String llamarAGemini(String prompt) {
         String apiKey = geminiConfig.getApiKey();
-
+        String promptWithPersona = "Actúa como un tutor oficial de la Universidad Peruana de Ciencias Aplicadas (UPC). Posees conocimientos profundos en cualquier carrera universitaria y puedes asistir a estudiantes de cualquier universidad. Responde siempre en español, de forma concisa, educada y profesional, como lo haría un representante de la UPC. Limita tu respuesta a menos de 100 palabras. La pregunta del usuario es:" + prompt;
         String url = "https://generativelanguage.googleapis.com/v1/models/gemini-2.5-pro:generateContent?key=" + apiKey;
 
         String body = """
@@ -37,7 +37,7 @@ public class GeminiServiceImpl implements GeminiServiceInterface {
             }]
           }]
         }
-        """.formatted(prompt);
+        """.formatted(promptWithPersona);
 
         String response = webClient.post()
                 .uri(url)
@@ -65,7 +65,7 @@ public class GeminiServiceImpl implements GeminiServiceInterface {
         try {
             String apiKey = geminiConfig.getApiKey();
             String url = "https://generativelanguage.googleapis.com/v1/models/gemini-2.5-pro:generateContent?key=" + apiKey;
-
+            String promptWithPersona = "Actúa como un tutor oficial de la Universidad Peruana de Ciencias Aplicadas (UPC). Posees conocimientos profundos en cualquier carrera universitaria y puedes asistir a estudiantes de cualquier universidad. Responde siempre en español, de forma concisa, educada y profesional, como lo haría un representante de la UPC. Limita tu respuesta a menos de 100 palabras. La pregunta del usuario es:" + prompt;
             String base64Data = Base64.getEncoder().encodeToString(archivo);
 
             // Crear JSON
@@ -74,7 +74,7 @@ public class GeminiServiceImpl implements GeminiServiceInterface {
             inlineData.put("data", base64Data);
 
             Map<String, Object> partText = new HashMap<>();
-            partText.put("text", prompt);
+            partText.put("text", promptWithPersona);
 
             Map<String, Object> partFile = new HashMap<>();
             partFile.put("inline_data", inlineData);
@@ -104,7 +104,7 @@ public class GeminiServiceImpl implements GeminiServiceInterface {
                     .asText();
 
         } catch (Exception e) {
-            e.printStackTrace(); // Para depuración
+            e.printStackTrace();
             return "Error al procesar archivo con Gemini";
         }
     }
