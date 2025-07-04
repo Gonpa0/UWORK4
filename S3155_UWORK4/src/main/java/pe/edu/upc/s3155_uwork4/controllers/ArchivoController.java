@@ -27,7 +27,10 @@ public class ArchivoController {
     @Autowired
     private IArchivoService aS;
 
+
+
     @PreAuthorize("hasAuthority('DESARROLLADOR') or hasAuthority('ADMIN') or hasAuthority('ESTUDIANTESUPERIOR') or hasAuthority('ESTUDIANTEINFERIOR')")
+
     @GetMapping
     public List<ArchivoDTO> Listar() {
         return aS.listar().stream().map( x->{
@@ -35,7 +38,9 @@ public class ArchivoController {
             return m.map(x,ArchivoDTO.class);
         }).collect(Collectors.toList());
     }
+
     @PreAuthorize("hasAuthority('DESARROLLADOR') or hasAuthority('ADMIN') or hasAuthority('ESTUDIANTESUPERIOR') or hasAuthority('ESTUDIANTEINFERIOR')")
+
     @PostMapping
     public void Registrar(@RequestBody ArchivoDTO dto){
         ModelMapper m = new ModelMapper();
@@ -65,7 +70,9 @@ public class ArchivoController {
 
     // Subir un archivo local desde el frontend y guarda sus metadatos (nombre, fecha, usuario,
     // asesoría, formato) en la BD.
+
     @PreAuthorize("hasAuthority('DESARROLLADOR') or hasAuthority('ADMIN') or hasAuthority('ESTUDIANTESUPERIOR') or hasAuthority('ESTUDIANTEINFERIOR')")
+
     @PostMapping("/upload")
     public ResponseEntity<Map<String, String>> subirArchivo(
             @RequestParam("archivo") MultipartFile archivo,
@@ -111,7 +118,9 @@ public class ArchivoController {
 
     // Lista los archivos subidos para una asesoría específica (por idAsesoria)
     // para mostrarlos en el chat DEL FRONTEND.
+
     @PreAuthorize("hasAuthority('DESARROLLADOR') or hasAuthority('ADMIN') or hasAuthority('ESTUDIANTESUPERIOR') or hasAuthority('ESTUDIANTEINFERIOR')")
+
     @GetMapping("/asesoria/{id}")
     public List<ArchivoDTO> listarPorAsesoria(@PathVariable("id") int idAsesoria) {
         return aS.listarPorAsesoria(idAsesoria).stream().map(a -> {
