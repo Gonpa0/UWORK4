@@ -18,6 +18,8 @@ import java.util.stream.Collectors;
 public class NotificacionController {
     @Autowired
     private INotificacionService nS;
+
+    @PreAuthorize("hasAuthority('DESARROLLADOR') or hasAuthority('ADMIN') or hasAuthority('ESTUDIANTESUPERIOR') or hasAuthority('ESTUDIANTEINFERIOR')")
     @GetMapping
     public List<NotificacionDTO> Listar() {
         return nS.listar().stream().map( x->{
@@ -25,6 +27,7 @@ public class NotificacionController {
             return m.map(x, NotificacionDTO.class);
         }).collect(Collectors.toList());
     }
+    @PreAuthorize("hasAuthority('DESARROLLADOR') or hasAuthority('ADMIN')")
     @PostMapping
     public void Registrar(@RequestBody NotificacionDTO dto){
         ModelMapper m = new ModelMapper();
@@ -38,6 +41,7 @@ public class NotificacionController {
         NotificacionDTO dto = m.map(nS.listarporid(id),NotificacionDTO.class);
         return dto;
     }
+    @PreAuthorize("hasAuthority('DESARROLLADOR') or hasAuthority('ADMIN')")
     @PutMapping
     public void Modificar(@RequestBody NotificacionDTO dto){
         ModelMapper m = new ModelMapper();
@@ -45,12 +49,14 @@ public class NotificacionController {
         nS.Modificar(n);
 
     }
+    @PreAuthorize("hasAuthority('DESARROLLADOR') or hasAuthority('ADMIN')")
     @DeleteMapping( "/{id}")
     public void Eliminar(@PathVariable("id") int id){
         nS.Eliminar(id);
     }
 
 
+    @PreAuthorize("hasAuthority('DESARROLLADOR') or hasAuthority('ADMIN')")
     @GetMapping ("/promedio_notificacion")
     public List<PromedioNotificacionesDTO> ComparacionPorGrupoCicloPromedioNotificaciones()
     {

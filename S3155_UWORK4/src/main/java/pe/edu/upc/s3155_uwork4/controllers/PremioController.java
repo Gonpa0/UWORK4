@@ -18,6 +18,7 @@ public class PremioController {
     @Autowired
     private IPremioService premioService;
 
+
     @GetMapping
     public List<PremioDTO> listar() {
         return premioService.listar().stream().map(premio -> {
@@ -26,6 +27,7 @@ public class PremioController {
         }).collect(Collectors.toList());
     }
 
+    @PreAuthorize("hasAuthority('DESARROLLADOR') or hasAuthority('ADMIN')")
     @PostMapping
     public void registrar(@RequestBody PremioDTO dto) {
         ModelMapper modelMapper = new ModelMapper();
@@ -40,6 +42,7 @@ public class PremioController {
         return dto;
     }
 
+    @PreAuthorize("hasAuthority('DESARROLLADOR') or hasAuthority('ADMIN')")
     @PutMapping
     public void modificar(@RequestBody PremioDTO dto) {
         ModelMapper modelMapper = new ModelMapper();
@@ -47,6 +50,7 @@ public class PremioController {
         premioService.Modificar(premio);
     }
 
+    @PreAuthorize("hasAuthority('DESARROLLADOR') or hasAuthority('ADMIN')")
     @DeleteMapping("/{id}")
     public void eliminar(@PathVariable("id") int id) {
         premioService.Eliminar(id);

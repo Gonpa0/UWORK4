@@ -19,6 +19,8 @@ import java.util.stream.Collectors;
 public class AsesoriaController {
     @Autowired
     private IAsesoriaService aS;
+
+    @PreAuthorize("hasAuthority('DESARROLLADOR') or hasAuthority('ADMIN') or hasAuthority('ESTUDIANTESUPERIOR') or hasAuthority('ESTUDIANTEINFERIOR')")
     @GetMapping
     public List<AsesoriaDTO> Listar() {
         return aS.listar().stream().map(x->{
@@ -27,6 +29,8 @@ public class AsesoriaController {
 
         }).collect(Collectors.toList());
     }
+
+    @PreAuthorize("hasAuthority('DESARROLLADOR') or hasAuthority('ADMIN')")
     @PostMapping
     public void Registrar(@RequestBody AsesoriaDTO dto) {
         ModelMapper m = new ModelMapper();
@@ -40,17 +44,21 @@ public class AsesoriaController {
         return dto;
 
     }
+    @PreAuthorize("hasAuthority('DESARROLLADOR') or hasAuthority('ADMIN')")
     @PutMapping
     public void Modificar(@RequestBody AsesoriaDTO dto){
         ModelMapper m = new ModelMapper();
         Asesoria a = m.map(dto,Asesoria.class);
         aS.Modificar(a);
     }
+    @PreAuthorize("hasAuthority('DESARROLLADOR') or hasAuthority('ADMIN') or hasAuthority('ESTUDIANTESUPERIOR') or hasAuthority('ESTUDIANTEINFERIOR')")
     @DeleteMapping("/{id}")
     public void Eliminar(@PathVariable("id") int id) {
         aS.Eliminar(id);
     }
 
+
+    //  @PreAuthorize("hasAuthority('DESARROLLADOR') or hasAuthority('ADMIN') or hasAuthority('ESTUDIANTEINFERIOR')")
     @GetMapping ("/asesoriaporfecha")
     public List<AsesoriaporfechaDTO> Asesoriaporfecha()
     {
@@ -64,4 +72,8 @@ public class AsesoriaController {
         return ListDTO;
     }
 
+    @GetMapping("/usuario/{id}")
+    public List<Asesoria> listarPorUsuario(@PathVariable("id") Integer id) {
+        return aS.listarPorUsuario(id);
+    }
 }

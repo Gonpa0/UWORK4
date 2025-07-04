@@ -20,6 +20,7 @@ public class UsuarioPremioController {
     private IUsuarioPremioService uPS;
 
     // Listar todos los registros
+    @PreAuthorize("hasAuthority('DESARROLLADOR') or hasAuthority('ADMIN') or hasAuthority('ESTUDIANTESUPERIOR') or hasAuthority('ESTUDIANTEINFERIOR')")
     @GetMapping
     public List<UsuarioPremioDTO> listar() {
         return uPS.listar().stream().map(up -> {
@@ -33,6 +34,7 @@ public class UsuarioPremioController {
 
     // Registrar un nuevo registro
     @PostMapping
+    @PreAuthorize("hasAuthority('DESARROLLADOR') or hasAuthority('ADMIN')")
     public void registrar(@RequestBody UsuarioPremioDTO dto) {
         // Crear la entidad UsuarioPremio
         UsuarioPremio uP = new UsuarioPremio();
@@ -63,6 +65,7 @@ public class UsuarioPremioController {
     }
 
     // Modificar un registro existente
+    @PreAuthorize("hasAuthority('DESARROLLADOR') or hasAuthority('ADMIN')")
     @PutMapping
     public void modificar(@RequestBody UsuarioPremioDTO dto) {
         UsuarioPremio uP = new UsuarioPremio();
@@ -80,6 +83,7 @@ public class UsuarioPremioController {
     }
 
     // Eliminar un registro
+    @PreAuthorize("hasAuthority('DESARROLLADOR') or hasAuthority('ADMIN')")
     @DeleteMapping("/{id}")
     public void eliminar(@PathVariable("id") int id) {
         uPS.Eliminar(id);

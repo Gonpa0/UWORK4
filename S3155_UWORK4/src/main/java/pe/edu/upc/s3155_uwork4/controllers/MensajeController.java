@@ -3,10 +3,13 @@ package pe.edu.upc.s3155_uwork4.controllers;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import pe.edu.upc.s3155_uwork4.dtos.BusquedaPalabraMensajesDTO;
 import pe.edu.upc.s3155_uwork4.dtos.MensajeDTO;
+import pe.edu.upc.s3155_uwork4.entities.Asesoria;
 import pe.edu.upc.s3155_uwork4.entities.Mensaje;
+import pe.edu.upc.s3155_uwork4.entities.Usuario;
 import pe.edu.upc.s3155_uwork4.servicesinterfaces.IMensajeService;
 
 import java.time.LocalDate;
@@ -41,18 +44,21 @@ public class MensajeController {
         return dto;
 
     }
+    @PreAuthorize("hasAuthority('DESARROLLADOR') or hasAuthority('ADMIN')")
     @PutMapping
     public void Modificar(@RequestBody MensajeDTO dto){
         ModelMapper m = new ModelMapper();
         Mensaje me = m.map(dto,Mensaje.class);
         mS.Modificar(me);
     }
+    @PreAuthorize("hasAuthority('DESARROLLADOR') or hasAuthority('ADMIN')")
     @DeleteMapping("/{id}")
     public void Eliminar(@PathVariable("id") int id) {
         mS.Eliminar(id);
     }
 
 
+    @PreAuthorize("hasAuthority('DESARROLLADOR') or hasAuthority('ADMIN') or hasAuthority('ESTUDIANTESUPERIOR') or hasAuthority('ESTUDIANTEINFERIOR')")
     @GetMapping ("/BusquedaPalabraMensajes")
     public List<BusquedaPalabraMensajesDTO> BusquedaPalabraMensajes()
     {
@@ -70,7 +76,7 @@ public class MensajeController {
         }
         return ListDTO;
     }
-
+    @PreAuthorize("hasAuthority('DESARROLLADOR') or hasAuthority('ADMIN') or hasAuthority('ESTUDIANTESUPERIOR') or hasAuthority('ESTUDIANTEINFERIOR')")
     @GetMapping("/asesoria/{id}")
     public List<MensajeDTO> listarPorAsesoria(@PathVariable("id") int idAsesoria) {
         return mS.listarPorAsesoriaId(idAsesoria)

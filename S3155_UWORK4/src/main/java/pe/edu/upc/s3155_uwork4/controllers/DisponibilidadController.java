@@ -21,6 +21,7 @@ public class DisponibilidadController {
     @Autowired
     private IDisponibilidadService iDisponibilidadService;
 
+    @PreAuthorize("hasAuthority('DESARROLLADOR') or hasAuthority('ADMIN') or hasAuthority('ESTUDIANTEINFERIOR')or hasAuthority('ESTUDIANTESUPERIOR')")
     @GetMapping
     public List<DisponibilidadDTO> Listar() {
         return iDisponibilidadService.listar().stream().map( x->{
@@ -29,6 +30,7 @@ public class DisponibilidadController {
         }).collect(Collectors.toList());
     }
 
+    @PreAuthorize("hasAuthority('DESARROLLADOR') or hasAuthority('ADMIN') or hasAuthority('ESTUDIANTESUPERIOR')")
     @PostMapping
     public void Registrar(@RequestBody DisponibilidadDTO dto){
         ModelMapper m = new ModelMapper();
@@ -37,12 +39,15 @@ public class DisponibilidadController {
 
     }
 
+    @PreAuthorize("hasAuthority('DESARROLLADOR') or hasAuthority('ADMIN') or hasAuthority('ESTUDIANTESUPERIOR')")
     @GetMapping("/{id}")
     public DisponibilidadDTO Listarporid(@PathVariable("id") int id){
         ModelMapper m = new ModelMapper();
         DisponibilidadDTO dto = m.map(iDisponibilidadService.listarporid(id),DisponibilidadDTO.class);
         return dto;
     }
+
+    @PreAuthorize("hasAuthority('DESARROLLADOR') or hasAuthority('ADMIN') or hasAuthority('ESTUDIANTESUPERIOR')")
     @PutMapping
     public void Modificar(@RequestBody DisponibilidadDTO dto){
         ModelMapper m = new ModelMapper();
@@ -50,13 +55,15 @@ public class DisponibilidadController {
         iDisponibilidadService.Modificar(d);
 
     }
+
+    @PreAuthorize("hasAuthority('DESARROLLADOR') or hasAuthority('ADMIN') or hasAuthority('ESTUDIANTESUPERIOR')")
     @DeleteMapping( "/{id}")
     public void Eliminar(@PathVariable("id") int id){
         iDisponibilidadService.Eliminar(id);
     }
 
-    //METODO PARA EL QUERY BUSCAR POR FECHA Y USUARIO
 
+    //METODO PARA EL QUERY BUSCAR POR FECHA Y USUARIO
     @GetMapping("/usuario/{id}/fecha/{fecha}")
     public List<DisponibilidadDTO> obtenerDisponibilidadesPorFecha(@PathVariable("id") int idUsuario,
                                                                    @PathVariable("fecha") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fecha) {
