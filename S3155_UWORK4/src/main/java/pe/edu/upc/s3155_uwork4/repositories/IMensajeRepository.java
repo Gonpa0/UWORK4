@@ -24,18 +24,6 @@ public interface IMensajeRepository extends JpaRepository<Mensaje, Integer> {
             "  AND LOWER(m.contenido) LIKE '%examen%';", nativeQuery = true)
     public List<String[]> BusquedaPalabraMensajes();
 
-    @Query(value="SELECT  \n" +
-            "  m.id_mensaje,\n" +
-            "  m.orden,\n" +
-            "  m.contenido,\n" +
-            "  m.fecha_mensaje,\n" +
-            "  m.id_asesoria,\n" +
-            "  m.id_usuario\n" +
-            "FROM mensaje m\n" +
-            "JOIN usuario u ON m.id_usuario = u.id_usuario\n" +
-            "WHERE u.ciclo <= 2\n" +
-            "  AND LOWER(m.contenido) LIKE '%tarea%';\n", nativeQuery = true)
-    public List<String[]> Mensajetarea();
 
     // PARA QUE FUNCIONE EL CHAT ASESORIA LISTAR MENSAJES POR ID DE ASESORIA
     @Query("SELECT m FROM Mensaje m WHERE m.asesoria.idAsesoria = :idAsesoria ORDER BY m.fechaMensaje ASC")
