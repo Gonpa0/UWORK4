@@ -70,7 +70,7 @@ public class ArticuloController {
     // ESTE METODO ESTA LIBRE NO NECESITA NI LOGUEARSE PARA ACCEDER ESTA LIBRE COMO EL LOGIN
     //Buscar articulo por autor
     @GetMapping ("/articulo_autor")
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR','ESTUDIANTE SUPERIOR','ESTUDIANTE INFERIOR')")
+    @PreAuthorize("hasAuthority('DESARROLLADOR') or hasAuthority('ADMIN') or hasAuthority('ESTUDIANTESUPERIOR') or hasAuthority('ESTUDIANTEINFERIOR')")
     public List<BuscarporAutorDTO> buscarporAutor(@RequestParam("nombreAutor") String nombreAutor) {
         return articuloService.buscarporAutor(nombreAutor).stream().map(x -> {
             ModelMapper m = new ModelMapper();
