@@ -13,6 +13,4 @@ public interface IFormatoArchivoService {
     public void Modificar(FormatoArchivo fa);
     public void Eliminar(int id);
 
-    // QUERY CONSULTA DE ARCHIVOS "STRING"
-    List<FormatoArchivo> buscarArchivoPorExtension(String extension );
 }

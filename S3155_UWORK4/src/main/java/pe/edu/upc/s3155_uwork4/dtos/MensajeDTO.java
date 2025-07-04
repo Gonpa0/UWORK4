@@ -10,6 +10,7 @@ public class MensajeDTO {
     private String contenido;
     private LocalDate fechaMensaje;
     private int Orden;
+
     private Usuario usuario;
     private Asesoria asesoria;
 

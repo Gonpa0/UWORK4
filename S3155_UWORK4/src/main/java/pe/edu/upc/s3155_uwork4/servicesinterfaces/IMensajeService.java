@@ -11,5 +11,8 @@ public interface IMensajeService {
     public void Modificar(Mensaje me);
     public void Eliminar(int id);
     public List<String[]> BusquedaPalabraMensajes();
-    public List<String[]> Mensajetarea();
+
+    //listar mensajes por asesoria es clave para construir el chat asesoria
+
+    public List<Mensaje> listarPorAsesoriaId(int idAsesoria);
 }

@@ -18,8 +18,8 @@ public class ValoracionController {
     @Autowired
     private IValoracionService vS;
 
+    @PreAuthorize("hasAuthority('DESARROLLADOR') or hasAuthority('ADMIN') or hasAuthority('ESTUDIANTESUPERIOR') or hasAuthority('ESTUDIANTEINFERIOR')")
     @GetMapping
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR')")
     public List<ValoracionDTO> Listar(){
         return vS.listar().stream().map(x->{
             ModelMapper m = new ModelMapper();
@@ -27,34 +27,33 @@ public class ValoracionController {
         }).collect(Collectors.toList());
     }
 
+    @PreAuthorize("hasAuthority('DESARROLLADOR') or hasAuthority('ADMIN') or hasAuthority('ESTUDIANTESUPERIOR') or hasAuthority('ESTUDIANTEINFERIOR')")
     @PostMapping
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR','ESTUDIANTE SUPERIOR','ESTUDIANTE INFERIOR')")
     public void Registrar(@RequestBody ValoracionDTO dto) {
         ModelMapper m = new ModelMapper();
         Valoracion v = m.map(dto, Valoracion.class);
         vS.Registrar(v);
     }
 
+    @PreAuthorize("hasAuthority('DESARROLLADOR') or hasAuthority('ADMIN')")
     @GetMapping("/{id})")
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR','ESTUDIANTE SUPERIOR','ESTUDIANTE INFERIOR')")
     public ValoracionDTO ListarporId(@PathVariable ("id") int id) {
         ModelMapper m = new ModelMapper();
         ValoracionDTO dto = m.map(vS.listarporid(id), ValoracionDTO.class);
         return dto;
-
-
     }
 
+
+    @PreAuthorize("hasAuthority('DESARROLLADOR') or hasAuthority('ADMIN')")
     @PutMapping
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR','ESTUDIANTE SUPERIOR','ESTUDIANTE INFERIOR')")
     public void Modificar(@RequestBody ValoracionDTO dto) {
         ModelMapper m = new ModelMapper();
         Valoracion v = m.map(dto, Valoracion.class);
         vS.Modificar(v);
     }
 
+    @PreAuthorize("hasAuthority('DESARROLLADOR') or hasAuthority('ADMIN')")
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR','ESTUDIANTE SUPERIOR','ESTUDIANTE INFERIOR')")
     public void eliminar(@PathVariable ("id") int id) {
         vS.Eliminar(id);
     }

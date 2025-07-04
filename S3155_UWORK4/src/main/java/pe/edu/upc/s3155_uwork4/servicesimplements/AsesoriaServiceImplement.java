@@ -37,9 +37,8 @@ public class AsesoriaServiceImplement implements IAsesoriaService {
         aR.deleteById(id);
     }
 
-    public List<String[]> Asesoriaporfecha() {
-        return aR.Asesoriaporfecha();
+    @Override
+    public List<Asesoria> listarPorUsuario(int idUsuario) {
+        return aR.findByUsuarioInferiorIdUsuarioOrUsuarioSuperiorIdUsuario(idUsuario, idUsuario);
     }
-
-
 }

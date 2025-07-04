@@ -20,8 +20,9 @@ public class UsuarioController {
     private IUsuarioService uS;
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @PreAuthorize("hasAuthority('DESARROLLADOR') or hasAuthority('ADMIN') or hasAuthority('ESTUDIANTESUPERIOR') or hasAuthority('ESTUDIANTEINFERIOR')")
     @GetMapping
-    @PreAuthorize("hasAuthority('ADMINISTRADOR')")
     public List<UsuarioDTO> Listar() {
     return uS.listar().stream().map( x->{
           ModelMapper m = new ModelMapper();
@@ -30,7 +31,6 @@ public class UsuarioController {
     }
 
     @GetMapping("/listarsinpassword")
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR')")
     public List<UsernameSinPasswordDTO> ListarUsernameSinPassword()
     {
         List<String[]> lista = uS.ListarUsernameSinPassword();
@@ -52,7 +52,6 @@ public class UsuarioController {
     }
 
     @PostMapping
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR','ESTUDIANTE SUPERIOR','ESTUDIANTE INFERIOR')")
     public void Registrar(@RequestBody UsuarioDTO dto){
         ModelMapper m = new ModelMapper();
         Usuario u = m.map(dto,Usuario.class);
@@ -63,7 +62,6 @@ public class UsuarioController {
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR')")
     public UsuarioDTO Listarporid(@PathVariable("id") int id){
         ModelMapper m = new ModelMapper();
         UsuarioDTO dto = m.map(uS.listarporid(id),UsuarioDTO.class);
@@ -71,7 +69,6 @@ public class UsuarioController {
     }
 
     @PutMapping
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR','ESTUDIANTE SUPERIOR','ESTUDIANTE INFERIOR')")
     public void Modificar(@RequestBody UsuarioDTO dto){
         ModelMapper m = new ModelMapper();
         Usuario u = m.map(dto,Usuario.class);
@@ -79,7 +76,6 @@ public class UsuarioController {
     }
 
     @DeleteMapping( "/{id}")
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR')")
     public void Eliminar(@PathVariable("id") int id){
         uS.Eliminar(id);
     }

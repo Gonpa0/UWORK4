@@ -18,8 +18,8 @@ public class PremioController {
     @Autowired
     private IPremioService premioService;
 
+
     @GetMapping
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR')")
     public List<PremioDTO> listar() {
         return premioService.listar().stream().map(premio -> {
             ModelMapper modelMapper = new ModelMapper();
@@ -27,8 +27,8 @@ public class PremioController {
         }).collect(Collectors.toList());
     }
 
+    @PreAuthorize("hasAuthority('DESARROLLADOR') or hasAuthority('ADMIN')")
     @PostMapping
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR','ESTUDIANTE SUPERIOR','ESTUDIANTE INFERIOR')")
     public void registrar(@RequestBody PremioDTO dto) {
         ModelMapper modelMapper = new ModelMapper();
         Premio premio = modelMapper.map(dto, Premio.class);
@@ -36,23 +36,22 @@ public class PremioController {
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR','ESTUDIANTE SUPERIOR','ESTUDIANTE INFERIOR')")
     public PremioDTO listarPorId(@PathVariable("id") int id) {
         ModelMapper modelMapper = new ModelMapper();
         PremioDTO dto = modelMapper.map(premioService.listarporid(id), PremioDTO.class);
         return dto;
     }
 
+    @PreAuthorize("hasAuthority('DESARROLLADOR') or hasAuthority('ADMIN')")
     @PutMapping
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR','ESTUDIANTE SUPERIOR','ESTUDIANTE INFERIOR')")
     public void modificar(@RequestBody PremioDTO dto) {
         ModelMapper modelMapper = new ModelMapper();
         Premio premio = modelMapper.map(dto, Premio.class);
         premioService.Modificar(premio);
     }
 
+    @PreAuthorize("hasAuthority('DESARROLLADOR') or hasAuthority('ADMIN')")
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR','ESTUDIANTE SUPERIOR','ESTUDIANTE INFERIOR')")
     public void eliminar(@PathVariable("id") int id) {
         premioService.Eliminar(id);
     }

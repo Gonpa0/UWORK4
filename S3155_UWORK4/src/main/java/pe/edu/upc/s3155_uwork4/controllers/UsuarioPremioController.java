@@ -20,8 +20,8 @@ public class UsuarioPremioController {
     private IUsuarioPremioService uPS;
 
     // Listar todos los registros
+    @PreAuthorize("hasAuthority('DESARROLLADOR') or hasAuthority('ADMIN') or hasAuthority('ESTUDIANTESUPERIOR') or hasAuthority('ESTUDIANTEINFERIOR')")
     @GetMapping
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR')")
     public List<UsuarioPremioDTO> listar() {
         return uPS.listar().stream().map(up -> {
             UsuarioPremioDTO dto = new UsuarioPremioDTO();
@@ -34,7 +34,7 @@ public class UsuarioPremioController {
 
     // Registrar un nuevo registro
     @PostMapping
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR','ESTUDIANTE SUPERIOR','ESTUDIANTE INFERIOR')")
+    @PreAuthorize("hasAuthority('DESARROLLADOR') or hasAuthority('ADMIN')")
     public void registrar(@RequestBody UsuarioPremioDTO dto) {
         // Crear la entidad UsuarioPremio
         UsuarioPremio uP = new UsuarioPremio();
@@ -55,7 +55,6 @@ public class UsuarioPremioController {
 
     // Buscar por id
     @GetMapping("/{id}")
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR','ESTUDIANTE SUPERIOR','ESTUDIANTE INFERIOR')")
     public UsuarioPremioDTO listarPorId(@PathVariable("id") int id) {
         UsuarioPremio up = uPS.listarporid(id);
         UsuarioPremioDTO dto = new UsuarioPremioDTO();
@@ -66,8 +65,8 @@ public class UsuarioPremioController {
     }
 
     // Modificar un registro existente
+    @PreAuthorize("hasAuthority('DESARROLLADOR') or hasAuthority('ADMIN')")
     @PutMapping
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR','ESTUDIANTE SUPERIOR','ESTUDIANTE INFERIOR')")
     public void modificar(@RequestBody UsuarioPremioDTO dto) {
         UsuarioPremio uP = new UsuarioPremio();
         uP.setId(dto.getId());
@@ -84,8 +83,8 @@ public class UsuarioPremioController {
     }
 
     // Eliminar un registro
+    @PreAuthorize("hasAuthority('DESARROLLADOR') or hasAuthority('ADMIN')")
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR','ESTUDIANTE SUPERIOR','ESTUDIANTE INFERIOR')")
     public void eliminar(@PathVariable("id") int id) {
         uPS.Eliminar(id);
     }

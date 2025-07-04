@@ -3,9 +3,13 @@ package pe.edu.upc.s3155_uwork4.securities;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
+import pe.edu.upc.s3155_uwork4.entities.Usuario;
+import org.springframework.security.core.GrantedAuthority;
+import pe.edu.upc.s3155_uwork4.repositories.IUsuarioRepository;
 
 import javax.crypto.spec.SecretKeySpec;
 import java.io.Serializable;
@@ -20,6 +24,9 @@ import java.util.stream.Collectors;
 public class JwtTokenUtil implements Serializable {
 
     private static final long serialVersionUID = -2550185165626007488L;
+
+    @Autowired
+    private IUsuarioRepository uR;
 
     //milisegundos || 18 minutos, le quitamos mil 18 segundos demo
     public static final long JWT_TOKEN_VALIDITY = 5 * 60 * 60 * 1000;
@@ -53,11 +60,24 @@ public class JwtTokenUtil implements Serializable {
         return expiration.before(new Date());
     }
 
+    /*
     //generate token for user
     public String generateToken(UserDetails userDetails) {
         Map<String, Object> claims = new HashMap<>();
         claims.put("nombre", "rosa");
         claims.put("role", userDetails.getAuthorities().stream().map(r -> r.getAuthority()).collect(Collectors.joining()));
+        return doGenerateToken(claims, userDetails.getUsername());
+    }*/
+
+    public String generateToken(UserDetails userDetails) {
+        Usuario usuario = uR.findOneByUsername(userDetails.getUsername());
+
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("nombre", usuario.getUsername()); // o usuario.getNombre() si tienes ese campo
+        claims.put("role", userDetails.getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority).collect(Collectors.joining()));
+        claims.put("idUsuario", usuario.getIdUsuario()); // 🔹 Esto es lo que necesitas
+
         return doGenerateToken(claims, userDetails.getUsername());
     }
 

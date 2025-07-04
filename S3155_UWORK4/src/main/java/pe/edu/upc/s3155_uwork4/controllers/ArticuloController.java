@@ -20,17 +20,16 @@ public class ArticuloController {
     @Autowired
     private IArticuloService articuloService;
 
+    //LIBRE NO NECESITAS NI LOGUEARTE PARA ESTE METODO
     @GetMapping
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR')")
     public List<ArticuloDTO> Listar() {
         return articuloService.listar().stream().map( x->{
             ModelMapper m = new ModelMapper();
             return m.map(x,ArticuloDTO.class);
         }).collect(Collectors.toList());
     }
-
+    @PreAuthorize("hasAuthority('DESARROLLADOR') or hasAuthority('ADMIN') or hasAuthority('ESTUDIANTESUPERIOR') ")
     @PostMapping
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR','ESTUDIANTE SUPERIOR','ESTUDIANTE INFERIOR')")
     public void Registrar(@RequestBody ArticuloDTO dto){
         ModelMapper m = new ModelMapper();
         Articulo ar = m.map(dto,Articulo.class);
@@ -38,23 +37,20 @@ public class ArticuloController {
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR','ESTUDIANTE SUPERIOR','ESTUDIANTE INFERIOR')")
     public ArticuloDTO Listarporid(@PathVariable("id") int id){
         ModelMapper m = new ModelMapper();
         ArticuloDTO dto = m.map(articuloService.listarporid(id),ArticuloDTO.class);
         return dto;
     }
-
+    @PreAuthorize("hasAuthority('DESARROLLADOR') or hasAuthority('ADMIN') or hasAuthority('ESTUDIANTESUPERIOR') ")
     @PutMapping
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR','ESTUDIANTE SUPERIOR','ESTUDIANTE INFERIOR')")
     public void Modificar(@RequestBody ArticuloDTO dto){
         ModelMapper m = new ModelMapper();
         Articulo ar = m.map(dto,Articulo.class);
         articuloService.Modificar(ar);
     }
-
+    @PreAuthorize("hasAuthority('DESARROLLADOR') or hasAuthority('ADMIN') or hasAuthority('ESTUDIANTESUPERIOR') ")
     @DeleteMapping( "/{id}")
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR','ESTUDIANTE SUPERIOR','ESTUDIANTE INFERIOR')")
     public void Eliminar(@PathVariable("id") int id){
         articuloService.Eliminar(id);
     }
@@ -62,19 +58,19 @@ public class ArticuloController {
 
     //QUERYS
 
+    //ESTE METODO ESTA LIBRE NO NECESITA NI LOGUEARSE PARA ACCEDER ESTA LIBRE COMO EL LOGIN
     // Buscar artículos por palabra clave
     @GetMapping("/buscar")
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR','ESTUDIANTE SUPERIOR','ESTUDIANTE INFERIOR')")
     public List<ArticuloDTO> buscarPorPalabra(@RequestParam("keyword") String keyword) {
         return articuloService.buscarPorPalabraClave(keyword).stream().map(x -> {
             ModelMapper m = new ModelMapper();
             return m.map(x, ArticuloDTO.class);
         }).collect(Collectors.toList());
     }
-
+    // ESTE METODO ESTA LIBRE NO NECESITA NI LOGUEARSE PARA ACCEDER ESTA LIBRE COMO EL LOGIN
     //Buscar articulo por autor
     @GetMapping ("/articulo_autor")
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR','ESTUDIANTE SUPERIOR','ESTUDIANTE INFERIOR')")
+    @PreAuthorize("hasAuthority('DESARROLLADOR') or hasAuthority('ADMIN') or hasAuthority('ESTUDIANTESUPERIOR') or hasAuthority('ESTUDIANTEINFERIOR')")
     public List<BuscarporAutorDTO> buscarporAutor(@RequestParam("nombreAutor") String nombreAutor) {
         return articuloService.buscarporAutor(nombreAutor).stream().map(x -> {
             ModelMapper m = new ModelMapper();

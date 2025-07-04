@@ -18,16 +18,17 @@ import java.util.stream.Collectors;
 public class NotificacionController {
     @Autowired
     private INotificacionService nS;
+
+    @PreAuthorize("hasAuthority('DESARROLLADOR') or hasAuthority('ADMIN') or hasAuthority('ESTUDIANTESUPERIOR') or hasAuthority('ESTUDIANTEINFERIOR')")
     @GetMapping
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR')")
     public List<NotificacionDTO> Listar() {
         return nS.listar().stream().map( x->{
             ModelMapper m = new ModelMapper();
             return m.map(x, NotificacionDTO.class);
         }).collect(Collectors.toList());
     }
+    @PreAuthorize("hasAuthority('DESARROLLADOR') or hasAuthority('ADMIN')")
     @PostMapping
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR','ESTUDIANTE SUPERIOR','ESTUDIANTE INFERIOR')")
     public void Registrar(@RequestBody NotificacionDTO dto){
         ModelMapper m = new ModelMapper();
         Notificacion n = m.map(dto,Notificacion.class);
@@ -35,27 +36,28 @@ public class NotificacionController {
 
     }
     @GetMapping("/{id}")
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR','ESTUDIANTE SUPERIOR','ESTUDIANTE INFERIOR')")
     public NotificacionDTO Listarporid(@PathVariable("id") int id){
         ModelMapper m = new ModelMapper();
         NotificacionDTO dto = m.map(nS.listarporid(id),NotificacionDTO.class);
         return dto;
     }
+    @PreAuthorize("hasAuthority('DESARROLLADOR') or hasAuthority('ADMIN')")
     @PutMapping
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR','ESTUDIANTE SUPERIOR','ESTUDIANTE INFERIOR')")
     public void Modificar(@RequestBody NotificacionDTO dto){
         ModelMapper m = new ModelMapper();
         Notificacion n = m.map(dto,Notificacion.class);
         nS.Modificar(n);
 
     }
+    @PreAuthorize("hasAuthority('DESARROLLADOR') or hasAuthority('ADMIN')")
     @DeleteMapping( "/{id}")
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR','ESTUDIANTE SUPERIOR','ESTUDIANTE INFERIOR')")
     public void Eliminar(@PathVariable("id") int id){
         nS.Eliminar(id);
     }
+
+
+    @PreAuthorize("hasAuthority('DESARROLLADOR') or hasAuthority('ADMIN')")
     @GetMapping ("/promedio_notificacion")
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR')")
     public List<PromedioNotificacionesDTO> ComparacionPorGrupoCicloPromedioNotificaciones()
     {
         List<String[]> lista= nS.ComparacionPorGrupoCicloPromedioNotificaciones();

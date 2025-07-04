@@ -19,8 +19,8 @@ import java.util.stream.Collectors;
 public class FormatoArchivoController {
     @Autowired
     private IFormatoArchivoService faS;
+
     @GetMapping
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR')")
     public List<FormatoArchivoDTO> Listar() {
         return faS.listar().stream().map( x->{
             ModelMapper m = new ModelMapper();
@@ -28,43 +28,29 @@ public class FormatoArchivoController {
         }).collect(Collectors.toList());
     }
     @PostMapping
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR','ESTUDIANTE SUPERIOR','ESTUDIANTE INFERIOR')")
     public void Registrar(@RequestBody FormatoArchivoDTO dto){
         ModelMapper m = new ModelMapper();
         FormatoArchivo fa = m.map(dto,FormatoArchivo.class);
         faS.Registrar(fa);
     }
     @GetMapping("/{id}")
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR','ESTUDIANTE SUPERIOR','ESTUDIANTE INFERIOR')")
     public FormatoArchivoDTO Listarporid(@PathVariable("id") int id){
         ModelMapper m = new ModelMapper();
         FormatoArchivoDTO dto = m.map(faS.listarporid(id),FormatoArchivoDTO.class);
         return dto;
     }
     @PutMapping
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR','ESTUDIANTE SUPERIOR','ESTUDIANTE INFERIOR')")
+    @PreAuthorize("hasAuthority('DESARROLLADOR') or hasAuthority('ADMIN')")
     public void Modificar(@RequestBody FormatoArchivo dto){
         ModelMapper m = new ModelMapper();
         FormatoArchivo fa = m.map(dto,FormatoArchivo.class);
         faS.Modificar(fa);
 
     }
+    @PreAuthorize("hasAuthority('DESARROLLADOR') or hasAuthority('ADMIN')")
     @DeleteMapping( "/{id}")
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR','ESTUDIANTE SUPERIOR','ESTUDIANTE INFERIOR')")
     public void Eliminar(@PathVariable("id") int id){
         faS.Eliminar(id);
     }
 
-    //QUERY
-
-    //Consultar formato de archivos subidos por la extension "string"
-    @GetMapping("/extension/{extension}")
-    @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR','ESTUDIANTE SUPERIOR','ESTUDIANTE INFERIOR')")
-    public List<FormatoArchivoDTO> buscarArchivoPorExtension(@PathVariable("extension") String extension){
-
-        return faS.buscarArchivoPorExtension(extension).stream().map(x -> {
-            ModelMapper m = new ModelMapper();
-            return m.map(x, FormatoArchivoDTO.class);
-        }).collect(Collectors.toList());
-    }
 }
