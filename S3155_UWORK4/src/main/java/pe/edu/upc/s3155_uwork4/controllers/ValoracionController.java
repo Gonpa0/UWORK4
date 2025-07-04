@@ -18,6 +18,7 @@ public class ValoracionController {
     @Autowired
     private IValoracionService vS;
 
+    @PreAuthorize("hasAuthority('DESARROLLADOR') or hasAuthority('ADMIN') or hasAuthority('ESTUDIANTESUPERIOR') or hasAuthority('ESTUDIANTEINFERIOR')")
     @GetMapping
     public List<ValoracionDTO> Listar(){
         return vS.listar().stream().map(x->{
@@ -26,6 +27,7 @@ public class ValoracionController {
         }).collect(Collectors.toList());
     }
 
+    @PreAuthorize("hasAuthority('DESARROLLADOR') or hasAuthority('ADMIN') or hasAuthority('ESTUDIANTESUPERIOR') or hasAuthority('ESTUDIANTEINFERIOR')")
     @PostMapping
     public void Registrar(@RequestBody ValoracionDTO dto) {
         ModelMapper m = new ModelMapper();
@@ -33,15 +35,16 @@ public class ValoracionController {
         vS.Registrar(v);
     }
 
+    @PreAuthorize("hasAuthority('DESARROLLADOR') or hasAuthority('ADMIN')")
     @GetMapping("/{id})")
     public ValoracionDTO ListarporId(@PathVariable ("id") int id) {
         ModelMapper m = new ModelMapper();
         ValoracionDTO dto = m.map(vS.listarporid(id), ValoracionDTO.class);
         return dto;
-
-
     }
 
+
+    @PreAuthorize("hasAuthority('DESARROLLADOR') or hasAuthority('ADMIN')")
     @PutMapping
     public void Modificar(@RequestBody ValoracionDTO dto) {
         ModelMapper m = new ModelMapper();
@@ -49,6 +52,7 @@ public class ValoracionController {
         vS.Modificar(v);
     }
 
+    @PreAuthorize("hasAuthority('DESARROLLADOR') or hasAuthority('ADMIN')")
     @DeleteMapping("/{id}")
     public void eliminar(@PathVariable ("id") int id) {
         vS.Eliminar(id);

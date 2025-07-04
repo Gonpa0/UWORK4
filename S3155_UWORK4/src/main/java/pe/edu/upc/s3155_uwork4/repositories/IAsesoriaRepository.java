@@ -16,5 +16,8 @@ public interface IAsesoriaRepository extends JpaRepository<Asesoria, Integer> {
             "ORDER BY fecha_asesoria;", nativeQuery = true)
     public List<String[]> Asesoriaporfecha();
 
+    List<Asesoria> findByUsuarioInferiorIdUsuarioOrUsuarioSuperiorIdUsuario(int idInferior, int idSuperior);
+
+
 
 }

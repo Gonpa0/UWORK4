@@ -20,6 +20,8 @@ public class UsuarioController {
     private IUsuarioService uS;
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @PreAuthorize("hasAuthority('DESARROLLADOR') or hasAuthority('ADMIN') or hasAuthority('ESTUDIANTESUPERIOR') or hasAuthority('ESTUDIANTEINFERIOR')")
     @GetMapping
     public List<UsuarioDTO> Listar() {
     return uS.listar().stream().map( x->{
