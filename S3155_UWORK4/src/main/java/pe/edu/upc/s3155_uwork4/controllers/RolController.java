@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping( "/rol")
+@PreAuthorize("hasAuthority('DESARROLLADOR') or hasAuthority('ADMIN')")
 public class RolController {
     @Autowired
     private IRolService rS;

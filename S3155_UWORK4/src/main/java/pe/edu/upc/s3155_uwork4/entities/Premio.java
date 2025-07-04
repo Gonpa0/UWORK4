@@ -20,10 +20,6 @@ public class Premio {
     @Column(nullable = false)
     private int puntos;
 
-    // Relación One to Many con UsuarioPremio
-    @OneToMany(mappedBy = "premio", cascade = CascadeType.ALL)
-    private List<UsuarioPremio> usuarioPremios;
-
     // Constructores
     public Premio() {}
 
@@ -65,14 +61,6 @@ public class Premio {
 
     public void setPuntos(int puntos) {
         this.puntos = puntos;
-    }
-
-    public List<UsuarioPremio> getUsuarioPremios() {
-        return usuarioPremios;
-    }
-
-    public void setUsuarioPremios(List<UsuarioPremio> usuarioPremios) {
-        this.usuarioPremios = usuarioPremios;
     }
 }
 

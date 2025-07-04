@@ -19,6 +19,7 @@ import java.util.stream.Collectors;
 public class FormatoArchivoController {
     @Autowired
     private IFormatoArchivoService faS;
+
     @GetMapping
     public List<FormatoArchivoDTO> Listar() {
         return faS.listar().stream().map( x->{
@@ -39,12 +40,14 @@ public class FormatoArchivoController {
         return dto;
     }
     @PutMapping
+    @PreAuthorize("hasAuthority('DESARROLLADOR') or hasAuthority('ADMIN')")
     public void Modificar(@RequestBody FormatoArchivo dto){
         ModelMapper m = new ModelMapper();
         FormatoArchivo fa = m.map(dto,FormatoArchivo.class);
         faS.Modificar(fa);
 
     }
+    @PreAuthorize("hasAuthority('DESARROLLADOR') or hasAuthority('ADMIN')")
     @DeleteMapping( "/{id}")
     public void Eliminar(@PathVariable("id") int id){
         faS.Eliminar(id);

@@ -13,6 +13,8 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/comentariosarticulo")
+// TODOS LOS ROLES PUEDEN ACCEDER A TODOS LOS METODOS DE ESTE CONTROLADOR COMENTARIO ARTICULOS
+@PreAuthorize("hasAuthority('DESARROLLADOR') or hasAuthority('ADMIN') or hasAuthority('ESTUDIANTESUPERIOR') or hasAuthority('ESTUDIANTEINFERIOR')")
 public class ComentarioArticuloController {
     @Autowired
     private IComentarioArticuloService comentarioArticuloService;

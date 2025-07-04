@@ -20,6 +20,7 @@ public class ArticuloController {
     @Autowired
     private IArticuloService articuloService;
 
+    //LIBRE NO NECESITAS NI LOGUEARTE PARA ESTE METODO
     @GetMapping
     public List<ArticuloDTO> Listar() {
         return articuloService.listar().stream().map( x->{
@@ -27,7 +28,7 @@ public class ArticuloController {
             return m.map(x,ArticuloDTO.class);
         }).collect(Collectors.toList());
     }
-
+    @PreAuthorize("hasAuthority('DESARROLLADOR') or hasAuthority('ADMIN') or hasAuthority('ESTUDIANTESUPERIOR') ")
     @PostMapping
     public void Registrar(@RequestBody ArticuloDTO dto){
         ModelMapper m = new ModelMapper();
@@ -41,14 +42,14 @@ public class ArticuloController {
         ArticuloDTO dto = m.map(articuloService.listarporid(id),ArticuloDTO.class);
         return dto;
     }
-
+    @PreAuthorize("hasAuthority('DESARROLLADOR') or hasAuthority('ADMIN') or hasAuthority('ESTUDIANTESUPERIOR') ")
     @PutMapping
     public void Modificar(@RequestBody ArticuloDTO dto){
         ModelMapper m = new ModelMapper();
         Articulo ar = m.map(dto,Articulo.class);
         articuloService.Modificar(ar);
     }
-
+    @PreAuthorize("hasAuthority('DESARROLLADOR') or hasAuthority('ADMIN') or hasAuthority('ESTUDIANTESUPERIOR') ")
     @DeleteMapping( "/{id}")
     public void Eliminar(@PathVariable("id") int id){
         articuloService.Eliminar(id);
@@ -57,6 +58,7 @@ public class ArticuloController {
 
     //QUERYS
 
+    //ESTE METODO ESTA LIBRE NO NECESITA NI LOGUEARSE PARA ACCEDER ESTA LIBRE COMO EL LOGIN
     // Buscar artículos por palabra clave
     @GetMapping("/buscar")
     public List<ArticuloDTO> buscarPorPalabra(@RequestParam("keyword") String keyword) {
@@ -65,7 +67,7 @@ public class ArticuloController {
             return m.map(x, ArticuloDTO.class);
         }).collect(Collectors.toList());
     }
-
+    // ESTE METODO ESTA LIBRE NO NECESITA NI LOGUEARSE PARA ACCEDER ESTA LIBRE COMO EL LOGIN
     //Buscar articulo por autor
     @GetMapping ("/articulo_autor")
     @PreAuthorize("hasAnyAuthority('ADMINISTRADOR','PROGRAMADOR','ESTUDIANTE SUPERIOR','ESTUDIANTE INFERIOR')")
