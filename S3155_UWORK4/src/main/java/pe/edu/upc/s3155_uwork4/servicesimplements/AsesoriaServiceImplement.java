@@ -41,10 +41,4 @@ public class AsesoriaServiceImplement implements IAsesoriaService {
     public List<Asesoria> listarPorUsuario(int idUsuario) {
         return aR.findByUsuarioInferiorIdUsuarioOrUsuarioSuperiorIdUsuario(idUsuario, idUsuario);
     }
-
-    public List<String[]> Asesoriaporfecha() {
-        return aR.Asesoriaporfecha();
-    }
-
-
 }
