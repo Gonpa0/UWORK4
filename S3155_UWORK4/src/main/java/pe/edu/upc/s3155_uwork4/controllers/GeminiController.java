@@ -19,7 +19,6 @@ import java.io.IOException;
 
 @RestController
 @RequestMapping("/chat")
-@PreAuthorize("hasAuthority('DESARROLLADOR') or hasAuthority('ADMIN') or hasAuthority('ESTUDIANTESUPERIOR') or hasAuthority('ESTUDIANTEINFERIOR')")
 public class GeminiController {
 
     @Autowired

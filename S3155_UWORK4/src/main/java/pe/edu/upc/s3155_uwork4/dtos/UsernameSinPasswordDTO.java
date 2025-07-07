@@ -1,6 +1,8 @@
 package pe.edu.upc.s3155_uwork4.dtos;
 
 
+import pe.edu.upc.s3155_uwork4.entities.Rol;
+
 public class UsernameSinPasswordDTO {
     private int idUsuario;
     private String username;
@@ -9,7 +11,7 @@ public class UsernameSinPasswordDTO {
     private int puntos;
     private String carrera;
     private String centro_de_estudios;
-    private int rol;
+    private Rol rol;
     private Boolean estado;
 
     public int getIdUsuario() {
@@ -68,11 +70,11 @@ public class UsernameSinPasswordDTO {
         this.centro_de_estudios = centro_de_estudios;
     }
 
-    public int getRol() {
+    public Rol getRol() {
         return rol;
     }
 
-    public void setRol(int rol) {
+    public void setRol(Rol rol) {
         this.rol = rol;
     }
 
